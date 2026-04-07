@@ -233,35 +233,47 @@
             // Fetch Acts from App (Filtered for Web Public)
             const { data: acts, error: actsError } = await supabaseClient
                 .from('acts')
-                .select('id, name, category, categories, image_url, description, is_web_public, web_custom_title, web_description, web_gallery')
+                .select('id, name, category, categories, image_url, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image')
                 .eq('is_web_public', true);
             
             // Fetch Characters from Old Web (Filtered for Web Public)
             const { data: chars, error: charsError } = await supabaseClient
                 .from('pld_characters')
-                .select('id, name, category, image, description, is_web_public, web_custom_title, web_description, web_gallery')
+                .select('id, name, category, image, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image')
                 .eq('is_web_public', true);
                 
             if (actsError) console.error("Error fetching acts:", actsError);
             if (charsError) console.error("Error fetching characters:", charsError);
 
-            const mappedActs = (acts || []).map(act => ({
-                id: act.id,
-                name: act.web_custom_title || act.name,
-                categories: [act.category, ...(act.categories || [])].map(c => c ? String(c).toUpperCase() : ''),
-                image: (act.web_gallery && act.web_gallery.length > 0) ? act.web_gallery[0] : (act.image_url || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800'),
-                description: act.web_description || act.description || '',
-                source: 'app'
-            }));
+            const mappedActs = (acts || []).map(act => {
+                let backupImage = act.image_url;
+                if (act.web_gallery && act.web_gallery.length > 0) {
+                   backupImage = typeof act.web_gallery[0] === 'string' ? act.web_gallery[0] : act.web_gallery[0].url;
+                }
+                return {
+                    id: act.id,
+                    name: act.web_custom_title || act.name,
+                    categories: [act.category, ...(act.categories || [])].map(c => c ? String(c).toUpperCase() : ''),
+                    image: act.web_cover_image || backupImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800',
+                    description: act.web_description || act.description || '',
+                    source: 'app'
+                };
+            });
 
-            const mappedChars = (chars || []).map(char => ({
-                id: char.id,
-                name: char.web_custom_title || char.name,
-                categories: [char.category ? String(char.category).toUpperCase() : ''],
-                image: (char.web_gallery && char.web_gallery.length > 0) ? char.web_gallery[0] : (char.image || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800'),
-                description: char.web_description || char.description || '',
-                source: 'old-web'
-            }));
+            const mappedChars = (chars || []).map(char => {
+                let backupImage = char.image;
+                if (char.web_gallery && char.web_gallery.length > 0) {
+                   backupImage = typeof char.web_gallery[0] === 'string' ? char.web_gallery[0] : char.web_gallery[0].url;
+                }
+                return {
+                    id: char.id,
+                    name: char.web_custom_title || char.name,
+                    categories: [char.category ? String(char.category).toUpperCase() : ''],
+                    image: char.web_cover_image || backupImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800',
+                    description: char.web_description || char.description || '',
+                    source: 'old-web'
+                };
+            });
 
             allElements = [...mappedActs, ...mappedChars].filter(el => el.name);
             
