@@ -115,11 +115,11 @@
         <div class="absolute inset-0 z-0 h-full w-full pointer-events-none bg-black">
             <video
                 id="hero-video"
-                src="images/transition.mp4"
+                src="images/new_reel.mp4"
                 muted
+                autoplay
+                loop
                 playsinline
-                preload="auto"
-                poster="images/transition.webp"
                 class="absolute inset-0 w-full h-full object-cover brightness-[0.7] contrast-[1.1]"
             ></video>
             <!-- Overlay Gradient -->
@@ -159,49 +159,22 @@
 </header>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const video = document.getElementById("hero-video");
     const container = document.getElementById("hero-container");
     const heroContent = document.getElementById("hero-content");
-    let videoDuration = 0;
-    
-    if (video) {
-        const initVideo = () => {
-            if (videoDuration > 0) return;
-            videoDuration = video.duration;
-            video.pause();
-            video.playbackRate = 0;
-        };
 
-        video.addEventListener("loadedmetadata", initVideo);
-        if (video.readyState >= 1) initVideo();
-
-        window.addEventListener("scroll", () => {
-            if (videoDuration && container) {
-                const rect = container.getBoundingClientRect();
-                const maxScroll = container.offsetHeight - window.innerHeight;
-                let scrollProgress = -rect.top / maxScroll;
-                
-                if (scrollProgress > 1) scrollProgress = 1;
-                if (scrollProgress < 0) scrollProgress = 0;
-                
-                requestAnimationFrame(() => {
-                    video.currentTime = scrollProgress * videoDuration;
-                });
-            }
-
-            if (heroContent && container) {
-                const rect = container.getBoundingClientRect();
-                const progress = Math.min(Math.max(-rect.top / (window.innerHeight * 0.5), 0), 1);
-                
-                const opacity = 1 - progress * 1.5;
-                const scale = 1 + (progress * 0.1);
-                const y = -(progress * 100);
-                
-                heroContent.style.opacity = Math.max(opacity, 0);
-                heroContent.style.transform = `scale(${scale}) translateY(${y}px)`;
-            }
-        }, { passive: true });
-    }
+    window.addEventListener("scroll", () => {
+        if (heroContent && container) {
+            const rect = container.getBoundingClientRect();
+            const progress = Math.min(Math.max(-rect.top / (window.innerHeight * 0.5), 0), 1);
+            
+            const opacity = 1 - progress * 1.5;
+            const scale = 1 + (progress * 0.1);
+            const y = -(progress * 100);
+            
+            heroContent.style.opacity = Math.max(opacity, 0);
+            heroContent.style.transform = `scale(${scale}) translateY(${y}px)`;
+        }
+    }, { passive: true });
 
     // Count-up Animation Observer
     const countObserver = new IntersectionObserver((entries) => {
