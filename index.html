@@ -102,7 +102,7 @@
     <div class="hidden md:flex gap-8 items-center">
         <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="index.html#origin-story">The Lab</a>
         <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="the-elements.html">The Elements</a>
-        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="experiences.html">Experiences</a>
+        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="experiences.html">The Experiences</a>
     </div>
     <div class="flex items-center gap-4">
         <a href="#booking-form" class="bg-primary text-on-primary px-6 py-2 rounded-lg font-headline font-bold uppercase tracking-[0.1em] text-xs hover:scale-105 active:scale-95 transition-all duration-300 inline-block text-center shadow-[0_0_20px_rgba(255,177,193,0.3)]">BOOK NOW</a>
@@ -115,7 +115,7 @@
         <div class="absolute inset-0 z-0 h-full w-full pointer-events-none bg-black">
             <video
                 id="hero-video"
-                src="images/new_reel.mp4"
+                src="images/new_video.mp4"
                 muted
                 autoplay
                 loop
@@ -219,8 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
 <span class="font-headline text-[10px] uppercase tracking-[0.3em] text-white/60">Years of Innovation</span>
 </div>
 <div class="glass-card p-8 rounded-xl flex flex-col items-center md:items-start group transition-all duration-500 hover:-translate-y-1 animate-pulse-slow" style="animation-delay: 200ms;">
-<span class="font-headline text-5xl font-bold text-neon-pink mb-2 tracking-tighter count-up" data-target="500">0+</span>
-<span class="font-headline text-[10px] uppercase tracking-[0.3em] text-white/60">Concepts Executed</span>
+<span class="font-headline text-5xl font-bold text-neon-pink mb-2 tracking-tighter count-up" data-target="2000">0+</span>
+<span class="font-headline text-[10px] uppercase tracking-[0.3em] text-white/60">Events Executed</span>
 </div>
 <div class="glass-card p-8 rounded-xl flex flex-col items-center md:items-start group transition-all duration-500 hover:-translate-y-1 animate-pulse-slow" style="animation-delay: 400ms;">
 <span class="font-headline text-5xl font-bold text-neon-cyan mb-2 tracking-tighter count-up" data-target="200">0+</span>
@@ -290,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
       <!-- Music & Sound -->
-      <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;">
+      <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;" onclick="window.location.href='the-elements.html'">
         <img src="images/elements_music.png" alt="Music & Sound" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
         <!-- Dark gradient base always visible -->
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <!-- Dance & Stage -->
-      <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;">
+      <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;" onclick="window.location.href='the-elements.html'">
         <img src="images/elements_dance.png" alt="Dance & Stage" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -335,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <!-- Circus & Special Acts -->
-      <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;">
+      <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;" onclick="window.location.href='the-elements.html'">
         <img src="images/elements_circus.png" alt="Circus & Special Acts" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -356,7 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <!-- Roaming Characters -->
-      <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;">
+      <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;" onclick="window.location.href='the-elements.html'">
         <img src="images/elements_roaming.png" alt="Roaming Characters" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -450,6 +450,41 @@ document.addEventListener("DOMContentLoaded", () => {
     </div><!-- /marquee-track -->
   </div><!-- /marquee-wrapper -->
 </section>
+<!-- Home Elements Section -->
+<style>
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+<section id="home-elements-section" class="py-24 bg-[#131313] relative overflow-hidden border-t border-white/5">
+    <div class="px-8 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+        <div>
+            <h2 class="font-headline text-4xl font-bold text-white mb-2 uppercase tracking-tighter">MEET THE <br/><span class="kinetic-italic text-secondary">ELEMENTS</span></h2>
+            <p class="text-white/50 font-body text-sm">A curated selection of our world-class talent and characters.</p>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="w-full md:w-80 relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/50">search</span>
+            <input type="text" id="home-artist-search" placeholder="Search elements..." class="w-full pl-12 pr-4 py-3 rounded-xl text-sm transition-all focus:border-[#4cd7f7] focus:ring-1 focus:ring-[#4cd7f7] text-white bg-white/5 border border-white/10 shadow-inner">
+        </div>
+    </div>
+
+    <div id="home-elements-loading" class="text-center py-12 text-white/50">
+        <span class="material-symbols-outlined animate-spin text-4xl text-[#4cd7f7] block mx-auto w-fit">progress_activity</span>
+        <p class="mt-4 font-headline uppercase tracking-widest text-xs">Loading Elements...</p>
+    </div>
+
+    <!-- Horizontal Scroll Container -->
+    <div id="home-artists-scroll" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-12 pt-4 px-8 hide-scrollbar">
+        <!-- Dynamic Cards Here -->
+    </div>
+    
+    <div class="text-center mt-4">
+        <a href="the-elements.html" class="inline-flex items-center gap-2 text-[#4cd7f7] bg-[#4cd7f7]/10 px-8 py-4 rounded-xl font-headline text-xs font-bold uppercase tracking-widest hover:gap-4 hover:bg-[#4cd7f7]/20 transition-all shadow-lg hover:shadow-[#4cd7f7]/20">
+            <span>EXPLORE FULL DIRECTORY</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+    </div>
+</section>
 
 <!-- ═══════════════════════════════════════════
      EXPERIENCES — Premium Glassmorphism Cards
@@ -473,7 +508,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" id="exp-cards-grid">
 
       <!-- Card 1: Private Celebrations -->
-      <div class="exp-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:560px;">
+      <div class="exp-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:560px;" onclick="window.location.href='experiences.html#private-celebrations'">
         <!-- BG Image -->
         <div class="exp-card-img absolute inset-0 transition-transform duration-1000 ease-out" style="will-change:transform;">
           <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuANJvivy7rIwNxCH1-ribi4T8GhMo9iKgXXO6XGRjxISFqfh9BnfkM8-7hyUHxzr_ShszXN49v3alNxLJJ2N6OtEcTdiXQtnx38HkEf2rHHXIk9e9Y0-6RKZ5J2K7VjmIfTo9AyLrJA1QzXcj4i0WGs2cMNChiUSXRoNLYz8Bxl1TElPWI0mBIreu0xziwtFWzj0hBkZ1HJstroAHCm1CXw0OHeDet3Y_PVZ34TPfCMBqaW0YVgA4Jv7KETdp6EdM9xbXJfaqM6BJE" alt="Private Celebrations" class="w-full h-full object-cover" />
@@ -489,7 +524,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <!-- Subtitle reveal line -->
           <div class="exp-card-sub overflow-hidden" style="max-height:0;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1);">
             <p class="font-body text-white/60 text-sm leading-relaxed pb-1">Intimate luxury productions designed around you — your space, your vision, your moment.</p>
-            <a href="experiences.html" class="inline-flex items-center gap-2 text-primary font-headline text-xs uppercase tracking-widest mt-3 hover:gap-3 transition-all">
+            <a href="experiences.html#private-celebrations" class="inline-flex items-center gap-2 text-primary font-headline text-xs uppercase tracking-widest mt-3 hover:gap-3 transition-all" onclick="event.stopPropagation()">
               <span>Explore</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
           </div>
@@ -497,7 +532,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <!-- Card 2: Elite Nightlife -->
-      <div class="exp-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:560px;">
+      <div class="exp-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:560px;" onclick="window.location.href='experiences.html#elite-nightlife'">
         <div class="exp-card-img absolute inset-0 transition-transform duration-1000 ease-out" style="will-change:transform;">
           <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYCA_Y-JRWQ-z6IMZAz13a363o_8OI6t_G3LNA2eTrqaqS-BEMMlYYVxWXwR72-EDBF0AU1jW_4eRoRof6F3UwS_zS2IpacEH4IoBePseWEHK1mVUXKiVJxe3BW_UObAwTSuF6BJTQ8GTMwyRQZyAmApjjuvuYgxxocb09XVdY5tiTJ08TXJW9QX_9Lr0M3BT6NRjirAVqnGmCZ_atoSqL5499N2n4D6y2aBlPkOLEz83G7Wa5o6Kf3pFvL_Ra7cLO-tAmeSGnXiY" alt="Elite Nightlife" class="w-full h-full object-cover" />
         </div>
@@ -508,7 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <h3 class="font-headline font-black text-white text-xl uppercase leading-tight mb-4">Elite Nightlife<br>&amp; Beach Clubs</h3>
           <div class="exp-card-sub overflow-hidden" style="max-height:0;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1);">
             <p class="font-body text-white/60 text-sm leading-relaxed pb-1">Curated performance packages for Ibiza's most prestigious clubs and beach clubs.</p>
-            <a href="experiences.html" class="inline-flex items-center gap-2 text-secondary font-headline text-xs uppercase tracking-widest mt-3 hover:gap-3 transition-all">
+            <a href="experiences.html#elite-nightlife" class="inline-flex items-center gap-2 text-secondary font-headline text-xs uppercase tracking-widest mt-3 hover:gap-3 transition-all" onclick="event.stopPropagation()">
               <span>Explore</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
           </div>
@@ -516,9 +551,9 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <!-- Card 3: Destination Weddings -->
-      <div class="exp-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:560px;">
+      <div class="exp-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:560px;" onclick="window.location.href='experiences.html#incredible-weddings'">
         <div class="exp-card-img absolute inset-0 transition-transform duration-1000 ease-out" style="will-change:transform;">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6YMfv6N0UlY7Esx76NEiMk-eEOZtHe7RMJdLP19cPjWqLvQUetOb4fGsGYYmZt-oynzhNtGpBO4ISK1Ktm__LeICW6I4zR83FbrfjwmxEhTGScAcvFl1m7mi2sxJ-OTExK6VyjwuHXcgdsAOTlXuuATXk9Q0eIz15Gxhe_JjKCmAkR03aNoR20pecGmCMvLjGVp-2cZYtVIQEKtufMaC99Q6HZaDeq5RPnrRzTHS1JtzNeUZkLtg08LqLabF4tEthGGu4picp5cY" alt="Destination Weddings" class="w-full h-full object-cover" />
+          <img src="images/weddings_hero.jpg" alt="Destination Weddings" class="w-full h-full object-cover" />
         </div>
         <div class="absolute inset-0" style="background:linear-gradient(160deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.85) 100%);"></div>
         <div class="exp-card-glow absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500" style="box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18),0 0 40px rgba(255,177,193,0.10);"></div>
@@ -527,7 +562,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <h3 class="font-headline font-black text-white text-xl uppercase leading-tight mb-4">Incredible<br>weddings</h3>
           <div class="exp-card-sub overflow-hidden" style="max-height:0;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1);">
             <p class="font-body text-white/60 text-sm leading-relaxed pb-1">Choreographed emotion for your most important day. Mediterranean magic, flawlessly performed.</p>
-            <a href="experiences.html" class="inline-flex items-center gap-2 text-primary font-headline text-xs uppercase tracking-widest mt-3 hover:gap-3 transition-all">
+            <a href="experiences.html#incredible-weddings" class="inline-flex items-center gap-2 text-primary font-headline text-xs uppercase tracking-widest mt-3 hover:gap-3 transition-all" onclick="event.stopPropagation()">
               <span>Explore</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
           </div>
@@ -535,7 +570,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <!-- Card 4: Corporate Masterpieces -->
-      <div class="exp-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:560px;">
+      <div class="exp-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:560px;" onclick="window.location.href='experiences.html#corporate-masterpieces'">
         <div class="exp-card-img absolute inset-0 transition-transform duration-1000 ease-out" style="will-change:transform;">
           <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpSCuufx4ntTP4TXcsKZDyrwZ0dsGz1NNNKsX76zFH_sfgtrP7QynfGlz-TmYM-S6vIz5o8_nKLapyK4JdegHlzJfOHTHzVxEVD_y4zOEecbq-Scs9fwBNg3WXUwkPKcWUAy2cjSLECsE-X7b5qmwhrIEWnZJp1trmbGNpUMrafc_G3HkBedkkquXGHUzKo7nUcAE0eQxGsq06Bi8YUB5vaHFJi-t5fdcQulWKmzeq0-vMCgZyha7h-2MPMG5PrFKlKalRQj7XwX0" alt="Corporate Masterpieces" class="w-full h-full object-cover" />
         </div>
@@ -546,7 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <h3 class="font-headline font-black text-white text-xl uppercase leading-tight mb-4">Corporate<br>Masterpieces</h3>
           <div class="exp-card-sub overflow-hidden" style="max-height:0;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1);">
             <p class="font-body text-white/60 text-sm leading-relaxed pb-1">Transform brand events into cultural moments. High-impact productions for visionary companies.</p>
-            <a href="experiences.html" class="inline-flex items-center gap-2 text-secondary font-headline text-xs uppercase tracking-widest mt-3 hover:gap-3 transition-all">
+            <a href="experiences.html#corporate-masterpieces" class="inline-flex items-center gap-2 text-secondary font-headline text-xs uppercase tracking-widest mt-3 hover:gap-3 transition-all" onclick="event.stopPropagation()">
               <span>Explore</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
           </div>
@@ -941,6 +976,78 @@ function escapeHtml(str) {
   });
 
 })();
+</script>
+<script>
+    const supabaseClient = window.supabase.createClient('https://nwxepstpedmxslbznejv.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM');
+
+    let homeElementsData = [];
+    const scrollContainer = document.getElementById('home-artists-scroll');
+    const loadSpinner = document.getElementById('home-elements-loading');
+    const homeSearch = document.getElementById('home-artist-search');
+
+    async function loadHomeElements() {
+        if(!scrollContainer) return;
+
+        try {
+            const { data: acts } = await supabaseClient.from('acts').select('id, name, category, image_url, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image').eq('is_web_public', true);
+            const { data: chars } = await supabaseClient.from('pld_characters').select('id, name, category, image, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image').eq('is_web_public', true);
+
+            const mappedActs = (acts || []).map(act => {
+                let backupImage = act.image_url;
+                if (act.web_gallery && act.web_gallery.length > 0) backupImage = typeof act.web_gallery[0] === 'string' ? act.web_gallery[0] : act.web_gallery[0].url;
+                return { id: act.id, name: act.web_custom_title || act.name, cat: [act.category].filter(Boolean), image: act.web_cover_image || backupImage, desc: act.web_description || act.description || '', source: 'app' };
+            });
+
+            const mappedChars = (chars || []).map(char => {
+                let backupImage = char.image;
+                if (char.web_gallery && char.web_gallery.length > 0) backupImage = typeof char.web_gallery[0] === 'string' ? char.web_gallery[0] : char.web_gallery[0].url;
+                return { id: char.id, name: char.web_custom_title || char.name, cat: [char.category].filter(Boolean), image: char.web_cover_image || backupImage, desc: char.web_description || char.description || '', source: 'old-web' };
+            });
+
+            homeElementsData = [...mappedActs, ...mappedChars].filter(el => el.name).sort(() => Math.random() - 0.5);
+            renderHomeElements(homeElementsData);
+        } catch(e) {
+            console.error(e);
+        } finally {
+            if(loadSpinner) loadSpinner.classList.add('hidden');
+        }
+    }
+
+    function renderHomeElements(data) {
+        scrollContainer.innerHTML = '';
+        if (data.length === 0) {
+            scrollContainer.innerHTML = '<div class="w-full text-center text-white/50 py-8">No results found.</div>';
+            return;
+        }
+
+        data.forEach(el => {
+            const card = document.createElement('div');
+            card.className = 'snap-center shrink-0 w-[85vw] sm:w-[320px] aspect-[4/5] rounded-[2rem] overflow-hidden group relative flex flex-col shadow-2xl border border-white/10';
+            const cat = el.cat.length ? el.cat[0].toUpperCase() : 'PERFORMANCE';
+            card.innerHTML = `
+                <a href="show.html?id=${el.id}&source=${el.source}" class="block w-full h-full relative hover:border-transparent">
+                    <img src="${el.image || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                        <span class="inline-block self-start px-4 py-2 mb-4 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-[#4cd7f7] border border-white/5 shadow-lg">${cat}</span>
+                        <h3 class="font-headline font-black text-white text-3xl mb-2 line-clamp-1 drop-shadow-md">${el.name}</h3>
+                        <p class="text-white/80 text-sm font-body line-clamp-2 leading-relaxed drop-shadow-md">${el.desc}</p>
+                    </div>
+                </a>
+            `;
+            scrollContainer.appendChild(card);
+        });
+    }
+
+    if(homeSearch) {
+        homeSearch.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = homeElementsData.filter(el => el.name.toLowerCase().includes(query) || el.desc.toLowerCase().includes(query));
+            renderHomeElements(filtered);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadHomeElements);
 </script>
 </body></html>
 

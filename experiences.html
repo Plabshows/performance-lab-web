@@ -209,7 +209,7 @@
     <div class="hidden md:flex gap-8 items-center">
         <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="index.html#origin-story">The Lab</a>
         <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="the-elements.html">The Elements</a>
-        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#ffb1c1] border-b-2 border-[#ffb1c1] pb-1 transition-all duration-300 hover:scale-105" href="experiences.html">Experiences</a>
+        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#ffb1c1] border-b-2 border-[#ffb1c1] pb-1 transition-all duration-300 hover:scale-105" href="experiences.html">The Experiences</a>
     </div>
     <div class="flex items-center gap-4">
         <a href="#booking-form" class="bg-primary text-on-primary px-6 py-2 rounded-lg font-headline font-bold uppercase tracking-[0.1em] text-xs hover:scale-105 active:scale-95 transition-all duration-300 inline-block text-center shadow-[0_0_20px_rgba(255,177,193,0.3)]">BOOK NOW</a>
@@ -271,104 +271,94 @@
       <div class="divider"></div>
     </div>
 
-    <!-- Grid: 1 col mobile, 2 col tablet, 4 col desktop -->
-    <div id="exp-cards-grid" class="grid gap-5" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+    <!-- Alternating Z-Pattern Blocks -->
+    <div id="exp-blocks-container" class="flex flex-col">
 
-      <!-- Card 1: Private Celebrations -->
-      <div class="exp-card" style="height:580px;">
-        <div class="exp-card-img">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuANJvivy7rIwNxCH1-ribi4T8GhMo9iKgXXO6XGRjxISFqfh9BnfkM8-7hyUHxzr_ShszXN49v3alNxLJJ2N6OtEcTdiXQtnx38HkEf2rHHXIk9e9Y0-6RKZ5J2K7VjmIfTo9AyLrJA1QzXcj4i0WGs2cMNChiUSXRoNLYz8Bxl1TElPWI0mBIreu0xziwtFWzj0hBkZ1HJstroAHCm1CXw0OHeDet3Y_PVZ34TPfCMBqaW0YVgA4Jv7KETdp6EdM9xbXJfaqM6BJE"
-            alt="Private Celebrations & Villas"
-            style="width:100%;height:100%;object-fit:cover;"
-          />
+        <!-- Block 1: Private Celebrations -->
+        <div id="private-celebrations" class="exp-block group grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center mb-32 pt-20 -mt-20">
+            <div class="exp-block-img relative rounded-2xl overflow-hidden glass-card aspect-[4/5] md:aspect-square md:order-1" style="border-color: rgba(255,177,193,0.15);">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuANJvivy7rIwNxCH1-ribi4T8GhMo9iKgXXO6XGRjxISFqfh9BnfkM8-7hyUHxzr_ShszXN49v3alNxLJJ2N6OtEcTdiXQtnx38HkEf2rHHXIk9e9Y0-6RKZ5J2K7VjmIfTo9AyLrJA1QzXcj4i0WGs2cMNChiUSXRoNLYz8Bxl1TElPWI0mBIreu0xziwtFWzj0hBkZ1HJstroAHCm1CXw0OHeDet3Y_PVZ34TPfCMBqaW0YVgA4Jv7KETdp6EdM9xbXJfaqM6BJE" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Private Celebrations">
+                <div class="absolute inset-0" style="background: linear-gradient(170deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);"></div>
+            </div>
+            <div class="exp-block-content md:order-2 space-y-6">
+                <span class="tag-overline text-primary">Tailored Exclusivity</span>
+                <h3 class="font-headline font-black text-white text-4xl lg:text-5xl uppercase leading-tight line-clamp-2" style="letter-spacing:-0.03em;">Private Celebrations & Villas</h3>
+                <p class="font-body text-white/60 text-base leading-relaxed text-justify md:text-left">
+                    From Mediterranean cliff-side villas to superyacht decks, your private event demands unparalleled curation. We design bespoke, immersive artistic moments that blend seamlessly into your space. Our handpicked roster includes conceptual aerialists, immersive interactive characters, and sophisticated live musical acts that elevate a simple gathering into a theatrical masterpiece.
+                </p>
+                <p class="font-body text-white/50 text-sm leading-relaxed text-justify md:text-left italic">
+                    <b>What we provide:</b> End-to-end creative direction, talent acquisition, wardrobe styling, and on-site choreographic management to ensure your personal vision comes to life with impeccable execution.
+                </p>
+                <a href="#contact" class="btn-outline mt-4 inline-flex items-center gap-2">
+                    <span>Enquire Now</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
         </div>
-        <!-- Deep gradient -->
-        <div style="position:absolute;inset:0;background:linear-gradient(170deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.92) 100%);"></div>
-        <div class="exp-card-glow"></div>
-        <!-- Content -->
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;">
-          <span class="tag-overline mb-3" style="opacity:0.7;">Tailored Exclusivity</span>
-          <h3 class="font-headline font-black text-white uppercase mb-4" style="font-size:1.2rem;line-height:1.2;letter-spacing:-0.01em;">Private Celebrations<br>&amp; Villas</h3>
-          <div class="exp-card-sub">
-            <p class="font-body text-white/55 text-sm leading-relaxed mb-4">From Mediterranean cliff-side villas to superyacht decks — we craft intimate luxury productions calibrated to perfection.</p>
-            <a href="#contact" class="inline-flex items-center gap-2 text-primary font-headline text-xs uppercase tracking-widest hover:gap-3 transition-all" style="color:#ffb1c1;">
-              <span>Enquire</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Card 2: Elite Nightlife -->
-      <div class="exp-card" style="height:580px;">
-        <div class="exp-card-img">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYCA_Y-JRWQ-z6IMZAz13a363o_8OI6t_G3LNA2eTrqaqS-BEMMlYYVxWXwR72-EDBF0AU1jW_4eRoRof6F3UwS_zS2IpacEH4IoBePseWEHK1mVUXKiVJxe3BW_UObAwTSuF6BJTQ8GTMwyRQZyAmApjjuvuYgxxocb09XVdY5tiTJ08TXJW9QX_9Lr0M3BT6NRjirAVqnGmCZ_atoSqL5499N2n4D6y2aBlPkOLEz83G7Wa5o6Kf3pFvL_Ra7cLO-tAmeSGnXiY"
-            alt="Elite Nightlife & Beach Clubs"
-            style="width:100%;height:100%;object-fit:cover;"
-          />
+        <!-- Block 2: Elite Nightlife -->
+        <div id="elite-nightlife" class="exp-block group grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center mb-32 pt-20 -mt-20">
+            <div class="exp-block-content space-y-6">
+                <span class="tag-overline text-[#4cd7f7]">Pulse of the Night</span>
+                <h3 class="font-headline font-black text-white text-4xl lg:text-5xl uppercase leading-tight line-clamp-2" style="letter-spacing:-0.03em;">Elite Nightlife & Beach Clubs</h3>
+                <p class="font-body text-white/60 text-base leading-relaxed text-justify md:text-left">
+                    Ibiza’s most iconic clubs and elite beachfront destinations trust us to deliver the unexpected. We don't just provide dancers; we construct comprehensive resident show packages featuring high-impact fire choreographers, boundary-pushing acrobats, and synchronized LED visual performances. We bring the scale and energy required to command thousands of people.
+                </p>
+                <p class="font-body text-white/50 text-sm leading-relaxed text-justify md:text-left italic">
+                    <b>What we provide:</b> Custom show design, seasonal artist residencies, specialized apparatus rigging coordination, and nightly stage management to turn a DJ set into a full sensory spectacle.
+                </p>
+                <a href="#contact" class="btn-outline mt-4 inline-flex items-center gap-2" style="border-color: rgba(76,215,247,0.3); color: #4cd7f7;">
+                    <span>Enquire Now</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+            <div class="exp-block-img relative rounded-2xl overflow-hidden glass-card aspect-[4/5] md:aspect-square" style="border-color: rgba(76,215,247,0.15);">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYCA_Y-JRWQ-z6IMZAz13a363o_8OI6t_G3LNA2eTrqaqS-BEMMlYYVxWXwR72-EDBF0AU1jW_4eRoRof6F3UwS_zS2IpacEH4IoBePseWEHK1mVUXKiVJxe3BW_UObAwTSuF6BJTQ8GTMwyRQZyAmApjjuvuYgxxocb09XVdY5tiTJ08TXJW9QX_9Lr0M3BT6NRjirAVqnGmCZ_atoSqL5499N2n4D6y2aBlPkOLEz83G7Wa5o6Kf3pFvL_Ra7cLO-tAmeSGnXiY" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Elite Nightlife">
+                <div class="absolute inset-0" style="background: linear-gradient(170deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);"></div>
+            </div>
         </div>
-        <div style="position:absolute;inset:0;background:linear-gradient(170deg,rgba(0,0,0,0.02) 0%,rgba(0,0,0,0.94) 100%);"></div>
-        <div class="exp-card-glow" style="box-shadow:inset 0 0 0 1px rgba(255,255,255,0.2),0 0 60px rgba(76,215,247,0.12);"></div>
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;">
-          <span class="tag-overline mb-3" style="opacity:0.7;color:#4cd7f7;">Pulse of the Night</span>
-          <h3 class="font-headline font-black text-white uppercase mb-4" style="font-size:1.2rem;line-height:1.2;letter-spacing:-0.01em;">Elite Nightlife<br>&amp; Beach Clubs</h3>
-          <div class="exp-card-sub">
-            <p class="font-body text-white/55 text-sm leading-relaxed mb-4">Ibiza's most iconic clubs trust us to deliver the unexpected — resident show packages that redefine the night.</p>
-            <a href="#contact" class="inline-flex items-center gap-2 font-headline text-xs uppercase tracking-widest hover:gap-3 transition-all" style="color:#4cd7f7;">
-              <span>Enquire</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Card 3: Destination Weddings -->
-      <div class="exp-card" style="height:580px;">
-        <div class="exp-card-img">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6YMfv6N0UlY7Esx76NEiMk-eEOZtHe7RMJdLP19cPjWqLvQUetOb4fGsGYYmZt-oynzhNtGpBO4ISK1Ktm__LeICW6I4zR83FbrfjwmxEhTGScAcvFl1m7mi2sxJ-OTExK6VyjwuHXcgdsAOTlXuuATXk9Q0eIz15Gxhe_JjKCmAkR03aNoR20pecGmCMvLjGVp-2cZYtVIQEKtufMaC99Q6HZaDeq5RPnrRzTHS1JtzNeUZkLtg08LqLabF4tEthGGu4picp5cY"
-            alt="Destination Weddings"
-            style="width:100%;height:100%;object-fit:cover;"
-          />
+        <!-- Block 3: Wedding -->
+        <div id="incredible-weddings" class="exp-block group grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center mb-32 pt-20 -mt-20">
+            <div class="exp-block-img relative rounded-2xl overflow-hidden glass-card aspect-[4/5] md:aspect-square md:order-1" style="border-color: rgba(255,177,193,0.15);">
+                <img src="images/weddings_hero.jpg" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Weddings">
+                <div class="absolute inset-0" style="background: linear-gradient(170deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);"></div>
+            </div>
+            <div class="exp-block-content md:order-2 space-y-6">
+                <span class="tag-overline text-primary">Unforgettable Vows</span>
+                <h3 class="font-headline font-black text-white text-4xl lg:text-5xl uppercase leading-tight line-clamp-2" style="letter-spacing:-0.03em;">Incredible Weddings</h3>
+                <p class="font-body text-white/60 text-base leading-relaxed text-justify md:text-left">
+                    Your wedding deserves a performance no guest will ever forget. We merge choreographed emotion with cinematic scale, tailoring acts that reflect your unique love story and aesthetic. From dramatic aerial silk presentations cascading over your reception dinner, to unexpected roaming characters welcoming your guests.
+                </p>
+                <p class="font-body text-white/50 text-sm leading-relaxed text-justify md:text-left italic">
+                    <b>What we provide:</b> Ceremony vocalists, reception entertainment scheduling, bespoke costume creation to match your wedding palette, and full artistic coordination so you can focus entirely on celebrating the magic of the day.
+                </p>
+                <a href="#contact" class="btn-outline mt-4 inline-flex items-center gap-2">
+                    <span>Enquire Now</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
         </div>
-        <div style="position:absolute;inset:0;background:linear-gradient(170deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.90) 100%);"></div>
-        <div class="exp-card-glow"></div>
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;">
-          <span class="tag-overline mb-3" style="opacity:0.7;">Unforgettable Vows</span>
-          <h3 class="font-headline font-black text-white uppercase mb-4" style="font-size:1.2rem;line-height:1.2;letter-spacing:-0.01em;">Incredible<br>weddings</h3>
-          <div class="exp-card-sub">
-            <p class="font-body text-white/55 text-sm leading-relaxed mb-4">Choreographed emotion, cinematic scale. Your wedding deserves a performance no guest will ever forget.</p>
-            <a href="#contact" class="inline-flex items-center gap-2 text-primary font-headline text-xs uppercase tracking-widest hover:gap-3 transition-all" style="color:#ffb1c1;">
-              <span>Enquire</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Card 4: Corporate Masterpieces -->
-      <div class="exp-card" style="height:580px;">
-        <div class="exp-card-img">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpSCuufx4ntTP4TXcsKZDyrwZ0dsGz1NNNKsX76zFH_sfgtrP7QynfGlz-TmYM-S6vIz5o8_nKLapyK4JdegHlzJfOHTHzVxEVD_y4zOEecbq-Scs9fwBNg3WXUwkPKcWUAy2cjSLECsE-X7b5qmwhrIEWnZJp1trmbGNpUMrafc_G3HkBedkkquXGHUzKo7nUcAE0eQxGsq06Bi8YUB5vaHFJi-t5fdcQulWKmzeq0-vMCgZyha7h-2MPMG5PrFKlKalRQj7XwX0"
-            alt="Corporate Masterpieces"
-            style="width:100%;height:100%;object-fit:cover;"
-          />
+        <!-- Block 4: Corporate -->
+        <div id="corporate-masterpieces" class="exp-block group grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center pt-20 -mt-20">
+            <div class="exp-block-content space-y-6">
+                <span class="tag-overline text-[#4cd7f7]">Brand Evolution</span>
+                <h3 class="font-headline font-black text-white text-4xl lg:text-5xl uppercase leading-tight line-clamp-2" style="letter-spacing:-0.03em;">Corporate Masterpieces</h3>
+                <p class="font-body text-white/60 text-base leading-relaxed text-justify md:text-left">
+                    High-impact productions that transform standard brand launches and corporate incentive trips into monumental cultural moments. We work directly with agencies and global brands to craft customized artistic interventions that command attention and drive brand message. We guarantee professionalism, precision, and an awe-inspiring result.
+                </p>
+                <p class="font-body text-white/50 text-sm leading-relaxed text-justify md:text-left italic">
+                    <b>What we provide:</b> Concept ideation, brand-colored costume integration, company messaging woven into live theatre, and grand finale stage shows that leave a lasting imprint on stakeholders and clients.
+                </p>
+                <a href="#contact" class="btn-outline mt-4 inline-flex items-center gap-2" style="border-color: rgba(76,215,247,0.3); color: #4cd7f7;">
+                    <span>Enquire Now</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+            <div class="exp-block-img relative rounded-2xl overflow-hidden glass-card aspect-[4/5] md:aspect-square" style="border-color: rgba(76,215,247,0.15);">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpSCuufx4ntTP4TXcsKZDyrwZ0dsGz1NNNKsX76zFH_sfgtrP7QynfGlz-TmYM-S6vIz5o8_nKLapyK4JdegHlzJfOHTHzVxEVD_y4zOEecbq-Scs9fwBNg3WXUwkPKcWUAy2cjSLECsE-X7b5qmwhrIEWnZJp1trmbGNpUMrafc_G3HkBedkkquXGHUzKo7nUcAE0eQxGsq06Bi8YUB5vaHFJi-t5fdcQulWKmzeq0-vMCgZyha7h-2MPMG5PrFKlKalRQj7XwX0" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Corporate Masterpieces">
+                <div class="absolute inset-0" style="background: linear-gradient(170deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);"></div>
+            </div>
         </div>
-        <div style="position:absolute;inset:0;background:linear-gradient(170deg,rgba(0,0,0,0.02) 0%,rgba(0,0,0,0.95) 100%);"></div>
-        <div class="exp-card-glow" style="box-shadow:inset 0 0 0 1px rgba(255,255,255,0.2),0 0 60px rgba(76,215,247,0.10);"></div>
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;">
-          <span class="tag-overline mb-3" style="opacity:0.7;color:#4cd7f7;">Brand Evolution</span>
-          <h3 class="font-headline font-black text-white uppercase mb-4" style="font-size:1.2rem;line-height:1.2;letter-spacing:-0.01em;">Corporate<br>Masterpieces</h3>
-          <div class="exp-card-sub">
-            <p class="font-body text-white/55 text-sm leading-relaxed mb-4">High-impact productions that transform brand launches and incentive trips into cultural moments.</p>
-            <a href="#contact" class="inline-flex items-center gap-2 font-headline text-xs uppercase tracking-widest hover:gap-3 transition-all" style="color:#4cd7f7;">
-              <span>Enquire</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-          </div>
-        </div>
-      </div>
 
-    </div><!-- /exp-cards-grid -->
+    </div><!-- /exp-blocks-container -->
   </div>
 </section>
 
@@ -379,15 +369,15 @@
   <div class="max-w-7xl mx-auto px-8 py-16">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
       <div class="stats-item">
-        <div class="font-headline font-black text-white mb-1" style="font-size:2.5rem;line-height:1;color:#ffb1c1;">+300</div>
+        <div class="font-headline font-black text-white mb-1" style="font-size:2.5rem;line-height:1;color:#ffb1c1;">+3000</div>
         <p class="font-body text-white/40 text-xs uppercase tracking-widest">Events Produced</p>
       </div>
       <div class="stats-item">
-        <div class="font-headline font-black text-white mb-1" style="font-size:2.5rem;line-height:1;color:#ffb1c1;">8+</div>
+        <div class="font-headline font-black text-white mb-1" style="font-size:2.5rem;line-height:1;color:#ffb1c1;">21+</div>
         <p class="font-body text-white/40 text-xs uppercase tracking-widest">Seasons in Ibiza</p>
       </div>
       <div class="stats-item">
-        <div class="font-headline font-black text-white mb-1" style="font-size:2.5rem;line-height:1;color:#4cd7f7;">16</div>
+        <div class="font-headline font-black text-white mb-1" style="font-size:2.5rem;line-height:1;color:#4cd7f7;">20</div>
         <p class="font-body text-white/40 text-xs uppercase tracking-widest">Venue Partners</p>
       </div>
       <div class="stats-item">
@@ -723,21 +713,40 @@
     }
   });
 
-  // ── Experience cards: stagger scroll entrance ─────────────
-  gsap.fromTo('.exp-card',
-    { opacity: 0, y: 70 },
-    {
-      opacity: 1, y: 0,
-      duration: 0.9,
-      ease: 'power3.out',
-      stagger: 0.14,
-      scrollTrigger: {
-        trigger: '#exp-cards-grid',
-        start: 'top 80%',
-        toggleActions: 'play none none none'
+  // ── Experience blocks: scroll entrance ─────────────
+  document.querySelectorAll('.exp-block').forEach(block => {
+    const img = block.querySelector('.exp-block-img');
+    const content = block.querySelector('.exp-block-content');
+    
+    gsap.fromTo(img,
+      { opacity: 0, scale: 0.95, y: 50 },
+      {
+        opacity: 1, scale: 1, y: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: block,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
       }
-    }
-  );
+    );
+
+    gsap.fromTo(content,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1, y: 0,
+        duration: 1,
+        delay: 0.3,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: block,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
 
   // ── Stats counter-up ──────────────────────────────────────
   gsap.fromTo('.stats-item',
