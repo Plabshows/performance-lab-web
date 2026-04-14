@@ -120,8 +120,38 @@
                 autoplay
                 loop
                 playsinline
+                webkit-playsinline
+                preload="auto"
                 class="absolute inset-0 w-full h-full object-cover brightness-[0.7] contrast-[1.1]"
             ></video>
+            <script>
+                (function() {
+                    var v = document.getElementById('hero-video');
+                    if (!v) return;
+                    v.muted = true;
+                    function tryPlay() {
+                        var p = v.play();
+                        if (p !== undefined) {
+                            p.catch(function() {
+                                // Autoplay blocked — retry on first user interaction
+                                document.addEventListener('touchstart', function handler() {
+                                    v.play();
+                                    document.removeEventListener('touchstart', handler);
+                                }, { once: true });
+                                document.addEventListener('click', function handler() {
+                                    v.play();
+                                    document.removeEventListener('click', handler);
+                                }, { once: true });
+                            });
+                        }
+                    }
+                    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                        tryPlay();
+                    } else {
+                        document.addEventListener('DOMContentLoaded', tryPlay);
+                    }
+                })();
+            </script>
             <!-- Overlay Gradient -->
             <div class="absolute inset-0 bg-gradient-to-t from-[#131313] via-[#131313]/20 to-transparent z-10"></div>
             <div class="absolute inset-0 bg-gradient-to-b from-[#131313]/40 via-transparent to-transparent z-10"></div>
