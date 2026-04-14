@@ -149,6 +149,7 @@
     </div>
 
 
+
     <!-- Toast Notification -->
     <div id="toast" class="toast">
         <span class="material-symbols-outlined text-base" id="toast-icon">check_circle</span>
@@ -227,10 +228,10 @@
                 
                 const { data: acts, error: errorA } = await supabaseClient
                     .from('acts')
-                    .select('id, name, description, image_url, photos_url, video_url, video_gallery, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
+                    .select('id, name, image_url, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
                 const { data: chars, error: errorC } = await supabaseClient
                     .from('pld_characters')
-                    .select('id, name, description, long_description, image, gallery, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
+                    .select('id, name, image, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
 
                 if (errorA || errorC) throw (errorA || errorC);
 
@@ -285,7 +286,7 @@
                         </label>
                     </td>
                     <td class="p-4 md:p-6 text-right">
-                        <button onclick="window.location.href='show.html?id=${show.id}&source=${show.source}&edit=true'" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap">
+                        <button onclick="window.location.href='../show.html?id=${show.id}&source=${show.source}&edit=true'" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap">
                             <span class="material-symbols-outlined text-xs align-middle mr-1">edit</span> EDITAR
                         </button>
                     </td>

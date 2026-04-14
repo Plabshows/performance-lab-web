@@ -89,6 +89,17 @@
         input, textarea, select { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; }
         input:focus, textarea:focus, select:focus { border-color: #ffb1c1; outline: none; background: rgba(255, 255, 255, 0.08); }
         select option { background-color: #1b1b1b; color: white; }
+
+        /* Edit Mode Styles */
+        .editable { position: relative; transition: all 0.2s; border: 1px dashed transparent; }
+        .editable:hover, .editable:focus { outline: none; border-color: rgba(255, 177, 193, 0.4); background: rgba(255, 255, 255, 0.02); border-radius: 8px; padding: 4px; box-shadow: 0 0 10px rgba(255, 177, 193, 0.1); }
+        .cover-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; cursor: pointer; color: white; }
+        .cover-overlay:hover { opacity: 1; }
+        .admin-delete-btn { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.8); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); transition: all 0.2s; z-index: 10; opacity: 0; }
+        .group:hover .admin-delete-btn { opacity: 1; }
+        .admin-delete-btn:hover { background: rgba(255,107,107,0.3); transform: scale(1.1); }
+        .upload-progress { height: 4px; background: rgba(255,255,255,0.1); width: 100%; border-radius: 2px; overflow: hidden; margin-top: 8px; }
+        .upload-progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ffb1c1, #4cd7f7); transition: width 0.3s; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -148,9 +159,23 @@
         </div>
 
         <!-- Gallery Section -->
-        <div id="gallery-section" class="hidden border-t border-white/5 pt-16 mt-16">
+        <div id="gallery-section" class="hidden border-t border-white/5 pt-16 mt-16 pb-32">
             <h2 class="font-headline text-3xl font-bold text-white mb-10 text-center uppercase tracking-tighter">MEDIA <span class="kinetic-italic text-secondary">GALLERY</span></h2>
             
+            <div id="admin-gallery-controls" class="hidden text-center mb-8 flex justify-center items-center gap-4 flex-wrap">
+                <input type="file" id="media-upload-input" accept="image/*,video/*" multiple class="hidden">
+                <button id="add-media-btn" class="bg-white/5 border border-white/10 hover:border-[#4cd7f7] hover:bg-white/10 text-white px-6 py-3 rounded-xl font-headline font-bold uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">add_photo_alternate</span> AÑADIR ARCHIVO
+                </button>
+                <button id="add-youtube-btn" class="bg-white/5 border border-white/10 hover:border-[#ffb1c1] hover:bg-white/10 text-white px-6 py-3 rounded-xl font-headline font-bold uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">smart_display</span> AÑADIR VÍDEO (LINK)
+                </button>
+            </div>
+            <div id="gallery-upload-progress" class="max-w-md mx-auto mt-4 hidden">
+                <p class="text-xs text-secondary font-bold uppercase tracking-widest mb-2" id="gallery-upload-label">Subiendo...</p>
+                <div class="upload-progress"><div class="upload-progress-bar" id="gallery-upload-bar"></div></div>
+            </div>
+
             <!-- Video Container -->
             <div id="video-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 hidden">
                 <!-- Videos injected here -->
@@ -159,6 +184,25 @@
             <!-- Photos Scrolling -->
             <div id="photo-container" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar hidden">
                 <!-- Photos injected here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Admin Bar -->
+    <div id="admin-action-bar" class="fixed bottom-0 left-0 w-full bg-[#0d0d0d]/90 backdrop-blur-xl border-t border-white/10 p-4 transform translate-y-full transition-transform duration-500 z-[100] shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3 text-primary">
+                <span class="material-symbols-outlined animate-pulse">edit_square</span>
+                <div>
+                    <div class="font-headline font-bold uppercase tracking-widest text-sm">EDIT MODE ACTIVE</div>
+                    <div class="text-[10px] text-white/50 w-full">Changes are not saved until you click the save button.</div>
+                </div>
+            </div>
+            <div class="flex gap-4 w-full md:w-auto">
+                <a href="admin.html" class="flex-1 md:flex-none text-center px-6 py-3 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-all text-white/70">Cancel</a>
+                <button id="admin-save-btn" class="flex-1 md:flex-none text-center px-8 py-3 bg-primary text-black rounded-lg text-xs font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">save</span> GUARDAR CAMBIOS
+                </button>
             </div>
         </div>
     </div>
@@ -232,8 +276,16 @@
     const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
+    const showId = urlParams.get('id');
     const source = urlParams.get('source');
+    const isEditRequested = urlParams.get('edit') === 'true';
+
+    // Editing State Vectors
+    let currentItem = null;
+    let isAdminMode = false;
+    let editableGallery = [];
+    let originalMainImage = '';
+    let pendingCoverImage = null;
 
     // Helper to get youtube embed url
     function getYoutubeId(url) {
@@ -243,13 +295,8 @@
     }
 
     async function loadShowDetails() {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id');
-        const source = params.get('source');
-
-        if (!id || !source) {
-            document.getElementById('loading').classList.add('hidden');
-            document.getElementById('error').classList.remove('hidden');
+        if (!showId || !source) {
+            showError();
             return;
         }
 
@@ -260,57 +307,60 @@
             let description = '';
             let name = '';
             let category = '';
-            let mainImage = '';
 
             if (source === 'app') {
-                const { data, error } = await supabaseClient.from('acts').select('*').eq('id', id).single();
+                const { data, error } = await supabaseClient.from('acts').select('*').eq('id', showId).single();
                 if (error) throw error;
                 item = data;
-
-                // Visibility check
-                if (!item.is_web_public) throw new Error("Show is not public on web");
-                
-                name = item.web_custom_title || item.name;
-                category = (item.categories && item.categories.length > 0) ? item.categories[0] : item.category;
-                description = item.web_description || item.description || '';
-                
-                // Collect all media, prioritizing web cover + web gallery
-                const rawWebGallery = item.web_gallery || [];
-                const webGalleryUrls = rawWebGallery.map(g => typeof g === 'string' ? g : g.url).filter(Boolean);
-                const webGalleryVideos = rawWebGallery.filter(g => g && g.type === 'video').map(g => g.url).filter(Boolean);
-                const photoGallery = item.photos_url || [];
-                const coverImage = item.web_cover_image || item.image_url;
-                images = [coverImage, ...webGalleryUrls, ...photoGallery].filter(url => url && !url.includes('youtube') && !url.includes('vimeo') && !url.match(/\.(mp4|webm|mov)$/i));
-                images = [...new Set(images)];
-                mainImage = images[0] || coverImage;
-
-                const videoGallery = item.video_gallery || [];
-                videos = [item.video_url, ...webGalleryVideos, ...videoGallery].filter(url => url && (url.includes('youtube') || url.includes('vimeo') || url.match(/\.(mp4|webm|mov)$/i)));
-                videos = [...new Set(videos)];
             } else {
-                const { data, error } = await supabaseClient.from('pld_characters').select('*').eq('id', id).single();
+                const { data, error } = await supabaseClient.from('pld_characters').select('*').eq('id', showId).single();
                 if (error) throw error;
                 item = data;
-
-                // Visibility check
-                if (!item.is_web_public) throw new Error("Show is not public on web");
-
-                name = item.web_custom_title || item.name;
-                category = item.category;
-                description = item.web_description || item.long_description || item.description || '';
-                
-                const rawWebGallery2 = item.web_gallery || [];
-                const webGalleryUrls2 = rawWebGallery2.map(g => typeof g === 'string' ? g : g.url).filter(Boolean);
-                const webGalleryVideos2 = rawWebGallery2.filter(g => g && g.type === 'video').map(g => g.url).filter(Boolean);
-                const oldGallery = item.gallery || [];
-                const coverImage2 = item.web_cover_image || item.image;
-                images = [coverImage2, ...webGalleryUrls2, ...oldGallery].filter(url => url && !url.includes('youtube') && !url.includes('vimeo') && !url.match(/\.(mp4|webm|mov)$/i));
-                images = [...new Set(images)];
-                mainImage = images[0] || coverImage2;
-
-                videos = [item.video_url, ...webGalleryVideos2].filter(url => url && (url.includes('youtube') || url.includes('vimeo') || url.match(/\.(mp4|webm|mov)$/i)));
-                videos = [...new Set(videos)];
             }
+
+            currentItem = item;
+
+            // Session check for Edit Mode
+            if (isEditRequested) {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session) {
+                    isAdminMode = true;
+                }
+            }
+
+            // Public visibility check - skip check if admin
+            if (!item.is_web_public && !isAdminMode) throw new Error("Show is not public on web");
+
+            name = item.web_custom_title || item.name;
+            category = (item.categories && item.categories.length > 0) ? item.categories[0] : item.category;
+            
+            if (source === 'app') {
+                description = item.web_description || item.description || '';
+            } else {
+                description = item.web_description || item.long_description || item.description || '';
+            }
+            
+            // Build editable gallery array. Default behavior uses web_gallery
+            let rawWebGallery = item.web_gallery;
+            if (!rawWebGallery || (Array.isArray(rawWebGallery) && rawWebGallery.length === 0)) {
+                // If web_gallery is uninitialized, populate it dynamically from old fields for the edit mode
+                rawWebGallery = [];
+                if (source === 'app') {
+                    const ph = item.photos_url || [];
+                    const vi = item.video_gallery || [];
+                    if (item.video_url) vi.push(item.video_url);
+                    ph.forEach(p => { if (p) rawWebGallery.push({url: p, type: 'image'}); });
+                    vi.forEach(v => { if (v && !v.includes('youtube') && !v.includes('vimeo')) rawWebGallery.push({url: v, type: 'video'}); });
+                } else {
+                    const og = item.gallery || [];
+                    og.forEach(p => { if (p) rawWebGallery.push({url: p, type: 'image'}); });
+                }
+            } else if (typeof rawWebGallery === 'string') {
+                try { rawWebGallery = JSON.parse(rawWebGallery); } catch(e) { rawWebGallery = []; }
+            }
+            
+            editableGallery = [...(rawWebGallery || [])];
+            pendingCoverImage = item.web_cover_image || item.image_url || item.image || '';
 
             // Fill Hero
             document.getElementById('show-name').textContent = name;
@@ -318,59 +368,275 @@
             document.getElementById('show-description').textContent = description;
             
             const imageEl = document.getElementById('show-image');
-            imageEl.src = mainImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800';
-            
-            let hasMedia = false;
-            
-            // Build Video Gallery
-            const videoContainer = document.getElementById('video-container');
-            if (videos.length > 0) {
-                hasMedia = true;
-                videoContainer.classList.remove('hidden');
-                let validVideos = 0;
-                videos.forEach(vUrl => {
-                    const ytId = getYoutubeId(vUrl);
-                    if (ytId) {
-                        validVideos++;
-                        const iframe = document.createElement('iframe');
-                        iframe.className = 'w-full aspect-video rounded-xl shadow-lg border border-white/10';
-                        iframe.src = `https://www.youtube.com/embed/${ytId}`;
-                        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                        iframe.allowFullscreen = true;
-                        videoContainer.appendChild(iframe);
-                    }
-                });
-                if (validVideos === 0) videoContainer.classList.add('hidden');
-            }
+            imageEl.src = pendingCoverImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800';
 
-            // Build Photo Gallery
-            // Exclude the main image from the gallery if it's the only one
-            const galleryImages = images.filter(img => img !== mainImage);
-            const photoContainer = document.getElementById('photo-container');
-            if (galleryImages.length > 0) {
-                hasMedia = true;
-                photoContainer.classList.remove('hidden');
-                galleryImages.forEach(img => {
-                    const pic = document.createElement('div');
-                    pic.className = 'snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden glass-card p-1 shadow-lg group relative';
-                    pic.innerHTML = `<img src="${img}" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform duration-700">`;
-                    photoContainer.appendChild(pic);
-                });
-            }
-
-            if (hasMedia) {
-                document.getElementById('gallery-section').classList.remove('hidden');
-            }
+            // Build initial gallery
+            renderGallery();
 
             // Show content
             document.getElementById('loading').classList.add('hidden');
             document.getElementById('content').classList.remove('hidden');
 
+            if (isAdminMode) {
+                activateEditMode();
+            }
+
         } catch (err) {
             console.error('Error fetching show details:', err);
-            document.getElementById('loading').classList.add('hidden');
-            document.getElementById('error').classList.remove('hidden');
+            showError();
         }
+    }
+
+    function renderGallery() {
+        const videoContainer = document.getElementById('video-container');
+        const photoContainer = document.getElementById('photo-container');
+        const gallerySection = document.getElementById('gallery-section');
+        
+        videoContainer.innerHTML = '';
+        photoContainer.innerHTML = '';
+        
+        let hasVideos = false;
+        let hasPhotos = false;
+        
+        // Render editable gallery
+        editableGallery.forEach((item, idx) => {
+            const url = typeof item === 'string' ? item : item.url;
+            const ytId = getYoutubeId(url);
+            
+            if (ytId) {
+                hasVideos = true;
+                const iframeWrap = document.createElement('div');
+                iframeWrap.className = 'w-full aspect-video rounded-xl shadow-lg border border-white/10 relative group bg-black';
+                iframeWrap.innerHTML = `
+                    <iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/${ytId}"></iframe>
+                    ${isAdminMode ? `<div class="admin-delete-btn" onclick="removeGalleryItem(${idx})"><span class="material-symbols-outlined text-sm">delete</span></div>` : ''}
+                `;
+                videoContainer.appendChild(iframeWrap);
+                return;
+            }
+
+            const isVideo = url && (url.match(/\.(mp4|webm|mov|avi)(\?|$)/i) || (item.type && item.type.startsWith('video')));
+            
+            if (isVideo) {
+                hasVideos = true;
+                const wrap = document.createElement('div');
+                wrap.className = 'relative group w-full aspect-video rounded-xl shadow-lg border border-white/10 overflow-hidden bg-black';
+                wrap.innerHTML = `
+                    <video src="${url}" controls class="w-full h-full object-cover"></video>
+                    ${isAdminMode ? `<div class="admin-delete-btn" onclick="removeGalleryItem(${idx})"><span class="material-symbols-outlined">delete</span></div>` : ''}
+                `;
+                videoContainer.appendChild(wrap);
+            } else {
+                hasPhotos = true;
+                const pic = document.createElement('div');
+                pic.className = `snap-center shrink-0 ${isAdminMode ? 'w-64 h-64' : 'w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px]'} rounded-2xl overflow-hidden glass-card p-1 shadow-lg group relative`;
+                pic.innerHTML = `
+                    <img src="${url}" class="w-full h-full object-cover rounded-lg ${!isAdminMode && 'group-hover:scale-105 transition-transform duration-700'}">
+                    ${isAdminMode ? `<div class="admin-delete-btn" onclick="removeGalleryItem(${idx})"><span class="material-symbols-outlined text-sm">delete</span></div>` : ''}
+                `;
+                photoContainer.appendChild(pic);
+            }
+        });
+        
+        // Check for old youtube videos
+        let fallbackVideos = [];
+        if (source === 'app') {
+            fallbackVideos = [currentItem.video_url, ...(currentItem.video_gallery || [])];
+        } else {
+            fallbackVideos = [currentItem.video_url];
+        }
+        
+        fallbackVideos.forEach((vUrl, idx) => {
+             const ytId = getYoutubeId(vUrl);
+             if (ytId) {
+                 hasVideos = true;
+                 const iframeWrap = document.createElement('div');
+                 iframeWrap.className = 'w-full aspect-video rounded-xl shadow-lg border border-white/10 relative group';
+                 iframeWrap.innerHTML = `
+                    <iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/${ytId}"></iframe>
+                    ${isAdminMode ? `<div class="admin-delete-btn" onclick="removeYoutubeVideo('${vUrl}')"><span class="material-symbols-outlined text-sm">delete</span></div>` : ''}
+                 `;
+                 videoContainer.appendChild(iframeWrap);
+             }
+        });
+
+        if (hasVideos) {
+            videoContainer.classList.remove('hidden');
+        } else {
+            videoContainer.classList.add('hidden');
+        }
+        
+        if (hasPhotos) {
+            photoContainer.classList.remove('hidden');
+        } else {
+            if (!isAdminMode) photoContainer.classList.add('hidden');
+        }
+        
+        if (hasVideos || hasPhotos || isAdminMode) {
+            gallerySection.classList.remove('hidden');
+        }
+    }
+
+    function removeGalleryItem(index) {
+        editableGallery.splice(index, 1);
+        renderGallery();
+    }
+
+    function removeYoutubeVideo(url) {
+        if (source === 'app') {
+            if (currentItem.video_url === url) currentItem.video_url = null;
+            if (currentItem.video_gallery) {
+                currentItem.video_gallery = currentItem.video_gallery.filter(v => v !== url);
+            }
+        } else {
+            if (currentItem.video_url === url) currentItem.video_url = null;
+        }
+        renderGallery();
+    }
+
+    // --- Admin Edit Mode Logic ---
+    function activateEditMode() {
+        console.log("Activating edit mode");
+        document.getElementById('admin-action-bar').classList.remove('translate-y-full');
+        
+        // Editable Text Fields
+        const nameEl = document.getElementById('show-name');
+        const descEl = document.getElementById('show-description');
+        nameEl.contentEditable = "true";
+        descEl.contentEditable = "true";
+        nameEl.classList.add('editable');
+        descEl.classList.add('editable');
+        
+        // Cover Image Upload
+        const photoWrapper = document.getElementById('show-image').parentElement;
+        const coverOverlay = document.createElement('label');
+        coverOverlay.className = 'cover-overlay backdrop-blur-md';
+        coverOverlay.innerHTML = `
+            <span class="material-symbols-outlined text-4xl mb-2">add_a_photo</span>
+            <span class="font-headline font-bold uppercase tracking-widest text-sm">Cambiar Portada</span>
+            <input type="file" class="hidden" accept="image/*" id="cover-upload">
+            <div class="upload-progress w-48 mt-4 hidden" id="cover-progress-wrap"><div class="upload-progress-bar" id="cover-progress-bar"></div></div>
+        `;
+        photoWrapper.appendChild(coverOverlay);
+        
+        document.getElementById('cover-upload').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if(!file) return;
+            const pbWrap = document.getElementById('cover-progress-wrap');
+            const pb = document.getElementById('cover-progress-bar');
+            pbWrap.classList.remove('hidden');
+            pb.style.width = '0%';
+            
+            try {
+                const url = await uploadFile(file, 'covers', (pct) => pb.style.width = pct + '%');
+                pendingCoverImage = url;
+                document.getElementById('show-image').src = url;
+            } catch(er) {
+                alert("Error: " + er.message);
+            } finally {
+                pbWrap.classList.add('hidden');
+            }
+        });
+
+        // Gallery Controls
+        document.getElementById('admin-gallery-controls').classList.remove('hidden');
+        document.getElementById('photo-container').classList.remove('hidden');
+        
+        const mediaInput = document.getElementById('media-upload-input');
+        document.getElementById('add-media-btn').addEventListener('click', () => mediaInput.click());
+        mediaInput.addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            if (!files.length) return;
+            
+            const pWrap = document.getElementById('gallery-upload-progress');
+            const lbl = document.getElementById('gallery-upload-label');
+            const bar = document.getElementById('gallery-upload-bar');
+            pWrap.classList.remove('hidden');
+            
+            for (let i=0; i<files.length; i++) {
+                lbl.innerText = `Subiendo ${i+1}/${files.length} ...`;
+                bar.style.width = '0%';
+                try {
+                    const isVid = files[i].type.startsWith('video');
+                    const url = await uploadFile(files[i], 'gallery', (pct) => bar.style.width = pct + '%');
+                    editableGallery.push({url, type: isVid ? 'video' : 'image'});
+                    renderGallery();
+                } catch(er) {
+                    console.error(er);
+                }
+            }
+            pWrap.classList.add('hidden');
+            mediaInput.value = '';
+        });
+
+        document.getElementById('add-youtube-btn').addEventListener('click', () => {
+            const ytUrl = prompt("Pega aquí el enlace de YouTube o Vimeo:");
+            if (ytUrl && ytUrl.trim() !== '') {
+                editableGallery.push({url: ytUrl.trim(), type: 'video'});
+                renderGallery();
+            }
+        });
+
+        // Save Button Action
+        document.getElementById('admin-save-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('admin-save-btn');
+            btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">refresh</span> GUARDANDO...';
+            btn.disabled = true;
+            
+            try {
+                const newTitle = document.getElementById('show-name').innerText.trim();
+                const newDesc = document.getElementById('show-description').innerText.trim();
+                
+                const updates = {
+                    web_custom_title: newTitle,
+                    web_description: newDesc,
+                    web_cover_image: pendingCoverImage,
+                    web_gallery: editableGallery
+                };
+
+                if (source === 'app') {
+                    updates.video_url = currentItem.video_url;
+                    updates.video_gallery = currentItem.video_gallery;
+                } else {
+                    updates.video_url = currentItem.video_url;
+                }
+                
+                const table = source === 'app' ? 'acts' : 'pld_characters';
+                const { error } = await supabaseClient.from(table).update(updates).eq('id', showId);
+                if (error) throw error;
+                
+                btn.innerHTML = '<span class="material-symbols-outlined text-sm">check_circle</span> GUARDADO O.K.';
+                setTimeout(() => window.location.href = 'admin.html', 1500);
+            } catch(err) {
+                alert("Error al guardar: " + err.message);
+                btn.innerHTML = 'ERROR AL GUARDAR';
+                btn.disabled = false;
+            }
+        });
+    }
+
+    // File Upload via Supabase Storage
+    async function uploadFile(file, folder, onProgress) {
+        const ext = file.name.split('.').pop();
+        const filename = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+        
+        return new Promise(async (resolve, reject) => {
+            let fp = 0;
+            const pInt = setInterval(() => { fp = Math.min(fp + 15, 85); if(onProgress) onProgress(fp); }, 200);
+            const { data, error } = await supabaseClient.storage.from('web-media').upload(filename, file, { upsert: false });
+            clearInterval(pInt);
+            if(onProgress) onProgress(100);
+            if (error) reject(error);
+            else {
+                const { data: { publicUrl } } = supabaseClient.storage.from('web-media').getPublicUrl(filename);
+                resolve(publicUrl);
+            }
+        });
+    }
+
+    function showError() {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('error').classList.remove('hidden');
     }
 
     document.addEventListener('DOMContentLoaded', loadShowDetails);
