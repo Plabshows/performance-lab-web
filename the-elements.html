@@ -3,7 +3,18 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>PERFORMANCE LAB | PIONEERING ENTERTAINMENT</title>
+<title>Our Performers & Artists | Performance Lab Ibiza</title>
+<meta name="description" content="Browse our curated roster of world-class performers: DJs, dancers, circus acts, fire shows, singers and immersive characters. Available for events worldwide.">
+<link rel="canonical" href="https://performancelab.es/the-elements.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://performancelab.es/the-elements.html">
+<meta property="og:title" content="Our Performers & Artists | Performance Lab Ibiza">
+<meta property="og:description" content="Browse our curated roster of world-class performers: DJs, dancers, circus acts, fire shows, singers and immersive characters.">
+<meta property="og:image" content="https://performancelab.es/images/weddings_hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Our Performers & Artists | Performance Lab Ibiza">
+<meta name="twitter:description" content="Browse our curated roster of world-class performers available for events worldwide.">
+<meta name="twitter:image" content="https://performancelab.es/images/weddings_hero.jpg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -94,21 +105,43 @@
     </style>
     <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6Q752859X4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6Q752859X4');
+</script>
 </head>
 <body class="bg-background text-on-background">
 <!-- TopNavBar -->
-<!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 bg-[#131313]/60 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.8)] flex justify-between items-center px-8 py-6 max-w-[1920px] mx-auto">
     <a href="index.html" class="text-2xl font-black italic text-[#ffb1c1] tracking-tighter font-headline hover:scale-105 transition-transform duration-300">PERFORMANCE LAB</a>
+    <!-- Desktop menu -->
     <div class="hidden md:flex gap-8 items-center">
-        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="index.html#origin-story">The Lab</a>
+        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="the-lab.html">The Lab</a>
         <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#4cd7f7] border-b-2 border-[#4cd7f7] pb-1 transition-all duration-300 hover:scale-105" href="the-elements.html">The Elements</a>
         <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="experiences.html">The Experiences</a>
     </div>
     <div class="flex items-center gap-4">
-        <a href="#booking-form" class="bg-primary text-on-primary px-6 py-2 rounded-lg font-headline font-bold uppercase tracking-[0.1em] text-xs hover:scale-105 active:scale-95 transition-all duration-300 inline-block text-center shadow-[0_0_20px_rgba(255,177,193,0.3)]">BOOK NOW</a>
+        <a href="#booking-form" class="hidden md:inline-block bg-primary text-on-primary px-6 py-2 rounded-lg font-headline font-bold uppercase tracking-[0.1em] text-xs hover:scale-105 active:scale-95 transition-all duration-300 text-center shadow-[0_0_20px_rgba(255,177,193,0.3)]">BOOK NOW</a>
+        <!-- Hamburger button (mobile only) -->
+        <button id="mobile-menu-btn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 group" aria-label="Toggle menu">
+            <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="ham-line1"></span>
+            <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="ham-line2"></span>
+            <span class="block w-4 h-0.5 bg-[#ffb1c1] transition-all duration-300" id="ham-line3"></span>
+        </button>
     </div>
 </nav>
+
+<!-- Mobile Dropdown Menu -->
+<div id="mobile-menu" class="fixed top-0 left-0 w-full h-screen z-40 bg-[#0d0d0d]/97 backdrop-blur-2xl flex flex-col items-center justify-center gap-10 transform -translate-y-full transition-transform duration-500 ease-in-out">
+    <a href="the-lab.html" class="mobile-menu-link font-headline font-black text-4xl uppercase tracking-tight text-white hover:text-[#ffb1c1] transition-colors" onclick="closeMobileMenu()">The Lab</a>
+    <a href="the-elements.html" class="mobile-menu-link font-headline font-black text-4xl uppercase tracking-tight text-[#4cd7f7] transition-colors" onclick="closeMobileMenu()">The Elements</a>
+    <a href="experiences.html" class="mobile-menu-link font-headline font-black text-4xl uppercase tracking-tight text-white hover:text-[#ffb1c1] transition-colors" onclick="closeMobileMenu()">The Experiences</a>
+    <a href="#booking-form" class="mobile-menu-link font-headline font-black text-2xl uppercase tracking-widest text-[#ffb1c1]/60 mt-4 border border-[#ffb1c1]/20 px-8 py-3 rounded-full" onclick="closeMobileMenu()">BOOK NOW</a>
+</div>
 <main class='pt-28'>
 <!-- The Elements -->
 <section id="the-elements" class="py-24 px-8 bg-background relative overflow-hidden border-t border-white/5">
@@ -142,12 +175,10 @@
         </div>
 
         <div id="artists-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 min-h-[300px] content-start">
-            <!-- Dynamic Act Cards will render here -->
-        </div>
-        
-        <div id="loading-spinner" class="text-center py-12 text-white/50 col-span-full">
-            <span class="material-symbols-outlined animate-spin text-4xl text-primary block mx-auto w-fit">progress_activity</span>
-            <p class="mt-4 font-headline uppercase tracking-widest text-xs">Loading Elements...</p>
+            <div id="loading-spinner" class="col-span-full text-center py-12 text-white/50">
+                <span class="material-symbols-outlined animate-spin text-4xl text-primary block mx-auto w-fit">progress_activity</span>
+                <p class="mt-4 font-headline uppercase tracking-widest text-xs">Loading Elements...</p>
+            </div>
         </div>
     </div>
 </section>
@@ -160,41 +191,42 @@
 <h2 class="font-headline text-5xl font-bold text-white mb-8">LET'S CREATE <br/><span class="kinetic-italic text-primary">MAGIC.</span></h2>
 <!-- Contact Form -->
 <form id="booking-form" class="glass-card p-8 rounded-xl max-w-xl space-y-6 mb-12">
+<input type="hidden" name="_subject" value="New Event Brief — Performance Lab (The Elements Page)">
 <h3 class="font-headline font-bold text-white text-2xl mb-4">Event Brief</h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Full Name</label>
-<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="Enter your name" type="text" required/>
+<input name="name" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="Enter your name" type="text" required/>
 </div>
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Email Address</label>
-<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="name@email.com" type="email" required/>
+<input name="email" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="name@email.com" type="email" required/>
 </div>
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Date</label>
-<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white [color-scheme:dark]" type="date" required/>
+<input name="event_date" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white [color-scheme:dark]" type="date" required/>
 </div>
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Type</label>
-<select class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-primary focus:bg-white/10 outline-none" required>
+<select name="event_type" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-primary focus:bg-white/10 outline-none" required>
     <option value="" disabled selected>Select event type</option>
-    <option value="wedding" class="bg-[#1b1b1b]">Wedding</option>
-    <option value="corporate" class="bg-[#1b1b1b]">Corporate</option>
-    <option value="club" class="bg-[#1b1b1b]">Club / Nightlife</option>
-    <option value="private" class="bg-[#1b1b1b]">Private Celebration</option>
-    <option value="other" class="bg-[#1b1b1b]">Other</option>
+    <option value="Wedding" class="bg-[#1b1b1b]">Wedding</option>
+    <option value="Corporate" class="bg-[#1b1b1b]">Corporate</option>
+    <option value="Club / Nightlife" class="bg-[#1b1b1b]">Club / Nightlife</option>
+    <option value="Private Celebration" class="bg-[#1b1b1b]">Private Celebration</option>
+    <option value="Other" class="bg-[#1b1b1b]">Other</option>
 </select>
 </div>
 </div>
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Approximate Budget (€)</label>
-<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="e.g. 5000" type="number" min="0"/>
+<input name="budget" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="e.g. 5000" type="number" min="0"/>
 </div>
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">What are you looking for?</label>
-<textarea class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-white" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
+<textarea name="message" class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-white" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
 </div>
-<button class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all">SEND EVENT BRIEF</button>
+<button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all">SEND EVENT BRIEF</button>
 </form>
 <div class="flex flex-wrap gap-4">
 <button class="bg-white/5 border border-white/10 text-white px-8 py-3 rounded-lg font-headline font-bold uppercase text-xs tracking-widest hover:bg-white/10 transition-all">CONTACT THE LAB</button>
@@ -203,10 +235,10 @@
 </div>
 <div class="flex-1 flex flex-col md:items-end justify-between self-stretch">
 <div class="grid grid-cols-2 gap-x-16 gap-y-4 mb-12">
-<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="#">INSTAGRAM</a>
-<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://wa.me/34630787144" target="_blank">WHATSAPP</a>
-<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="#">LINKEDIN</a>
-<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="#">CONTACT</a>
+<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://www.instagram.com/performancelabshows" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://wa.me/34630787144" target="_blank" rel="noopener noreferrer">WHATSAPP</a>
+<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://www.linkedin.com/company/performance-lab-ibiza" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="#booking-form">CONTACT</a>
 </div>
 <div class="font-['Inter'] text-xs uppercase tracking-widest text-white/30">
                     © 2024 PERFORMANCE LAB. ALL RIGHTS RESERVED.
@@ -215,35 +247,64 @@
 </div>
 </footer>
 <script>
+// ── Mobile Menu Logic ─────────────────────────────────
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const hamLine1 = document.getElementById('ham-line1');
+const hamLine2 = document.getElementById('ham-line2');
+const hamLine3 = document.getElementById('ham-line3');
+
+function toggleMobileMenu() {
+    const isOpen = !mobileMenu.classList.contains('-translate-y-full');
+    if (isOpen) closeMobileMenu();
+    else openMobileMenu();
+}
+
+function openMobileMenu() {
+    mobileMenu.classList.remove('-translate-y-full');
+    hamLine1.style.transform = 'translateY(7px) rotate(45deg)';
+    hamLine2.style.opacity = '0';
+    hamLine3.style.width = '24px';
+    hamLine3.style.transform = 'translateY(-7px) rotate(-45deg)';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+    mobileMenu.classList.add('-translate-y-full');
+    hamLine1.style.transform = 'none';
+    hamLine2.style.opacity = '1';
+    hamLine3.style.width = '16px';
+    hamLine3.style.transform = 'none';
+    document.body.style.overflow = '';
+}
+
+if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+</script>
+<script>
     const supabaseUrl = 'https://nwxepstpedmxslbznejv.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM';
     const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     let allElements = [];
-    const grid = document.getElementById('artists-grid');
-    const loading = document.getElementById('loading-spinner');
     const searchInput = document.getElementById('artist-search');
     const filterBtns = document.querySelectorAll('.filter-btn');
 
     async function loadElements() {
+        const grid = document.getElementById('artists-grid');
+        grid.innerHTML = '<div id="loading-spinner" class="col-span-full text-center py-12 text-white/50"><span class="material-symbols-outlined animate-spin text-4xl text-primary block mx-auto w-fit">progress_activity</span><p class="mt-4 font-headline uppercase tracking-widest text-xs">Loading Elements...</p></div>';
+
         try {
-            loading.classList.remove('hidden');
-            grid.innerHTML = '';
-            
-            // Fetch Acts from App (Filtered for Web Public)
-            const { data: acts, error: actsError } = await supabaseClient
-                .from('acts')
-                .select('id, name, category, categories, image_url, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image')
-                .eq('is_web_public', true);
-            
-            // Fetch Characters from Old Web (Filtered for Web Public)
-            const { data: chars, error: charsError } = await supabaseClient
-                .from('pld_characters')
-                .select('id, name, category, categories, image, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image')
-                .eq('is_web_public', true);
-                
-            if (actsError) console.error("Error fetching acts:", actsError);
-            if (charsError) console.error("Error fetching characters:", charsError);
+            // Run both fetches in parallel — each failure is handled independently
+            const [actsResult, charsResult] = await Promise.all([
+                supabaseClient.from('acts').select('id, name, category, categories, image_url, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image').eq('is_web_public', true),
+                supabaseClient.from('pld_characters').select('id, name, category, categories, image, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image').eq('is_web_public', true)
+            ]);
+
+            if (actsResult.error) console.warn('[PL] Acts fetch error:', actsResult.error.message);
+            if (charsResult.error) console.warn('[PL] Characters fetch error:', charsResult.error.message);
+
+            const acts = actsResult.data || [];
+            const chars = charsResult.data || [];
 
             const mappedActs = (acts || []).map(act => {
                 let backupImage = act.image_url;
@@ -292,13 +353,13 @@
             
             renderGrid(allElements);
         } catch (error) {
-            console.error(error);
-        } finally {
-            if (loading) loading.classList.add('hidden');
+            console.error('[PL] Fatal error loading elements:', error);
+            document.getElementById('artists-grid').innerHTML = '<div class="col-span-full py-12 text-center font-body"><p class="text-white/50 mb-4">Could not load artists. Please try again.</p><button onclick="loadElements()" class="text-primary border border-primary/30 px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-primary/10 transition-all">Retry</button></div>';
         }
     }
 
     function renderGrid(elements) {
+        const grid = document.getElementById('artists-grid');
         grid.innerHTML = '';
         if (elements.length === 0) {
             grid.innerHTML = '<div class="col-span-full py-12 text-center text-white/50 font-body">No elements found matching your criteria.</div>';
@@ -371,7 +432,36 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', loadElements);
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait for Supabase CDN to be ready
+        if (typeof window.supabase === 'undefined') {
+            document.getElementById('artists-grid').innerHTML = '<div class="col-span-full py-12 text-center text-white/50 font-body">Could not connect to database. Please refresh the page.</div>';
+            return;
+        }
+        loadElements();
+    });
 </script>
 <script src="booking-handler.js"></script>
+<!-- WhatsApp Floating Button -->
+<a id="wa-float" href="https://wa.me/34630787144?text=Hi!%20I%27m%20interested%20in%20booking%20Performance%20Lab" target="_blank" rel="noopener noreferrer"
+   aria-label="Contact us on WhatsApp"
+   style="position:fixed;bottom:28px;right:28px;z-index:9999;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);opacity:0;transform:scale(0.8);transition:opacity 0.4s ease,transform 0.4s ease,box-shadow 0.2s;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="30" height="30" fill="white">
+    <path d="M16 2C8.28 2 2 8.28 2 16c0 2.44.66 4.73 1.8 6.72L2 30l7.52-1.96A13.94 13.94 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.2 0-4.28-.6-6.06-1.64l-.44-.26-4.46 1.16 1.2-4.34-.28-.46A11.42 11.42 0 0 1 4.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.34-8.54c-.34-.18-2.02-1-2.34-1.12-.32-.1-.56-.18-.78.18-.22.34-.88 1.12-1.08 1.34-.2.22-.4.24-.74.08-.34-.18-1.44-.54-2.74-1.72-1.02-.92-1.7-2.04-1.9-2.38-.2-.34-.02-.52.14-.7.16-.16.34-.4.52-.6.18-.2.24-.34.34-.56.12-.22.06-.42-.02-.6-.08-.18-.78-1.88-1.06-2.58-.28-.68-.56-.58-.78-.6H9.9c-.2 0-.52.08-.8.4-.26.32-1.02 1-1.02 2.44s1.04 2.84 1.18 3.04c.16.2 2.04 3.12 4.94 4.36.7.3 1.24.48 1.66.62.7.22 1.34.18 1.84.1.56-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.18-1.38-.08-.12-.3-.2-.64-.36z"/>
+  </svg>
+</a>
+<script>
+  setTimeout(function() {
+    var wa = document.getElementById('wa-float');
+    if (wa) { wa.style.opacity = '1'; wa.style.transform = 'scale(1)'; }
+  }, 3000);
+  document.getElementById('wa-float').addEventListener('mouseenter', function() {
+    this.style.boxShadow = '0 6px 28px rgba(37,211,102,0.6)';
+    this.style.transform = 'scale(1.1)';
+  });
+  document.getElementById('wa-float').addEventListener('mouseleave', function() {
+    this.style.boxShadow = '0 4px 20px rgba(37,211,102,0.4)';
+    this.style.transform = 'scale(1)';
+  });
+</script>
 </body></html>

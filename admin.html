@@ -285,9 +285,14 @@
                         </label>
                     </td>
                     <td class="p-4 md:p-6 text-right">
-                        <button onclick="window.location.href='show.html?id=${show.id}&source=${show.source}&edit=true'" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap">
-                            <span class="material-symbols-outlined text-xs align-middle mr-1">edit</span> EDITAR
-                        </button>
+                        <div class="flex justify-end items-center gap-2">
+                            <button onclick="window.location.href='show.html?id=${show.id}&source=${show.source}&edit=true'" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-xs">edit</span> EDITAR
+                            </button>
+                            <button onclick="confirmDelete('${show.id}', '${show.source}', '${name.replace(/'/g, "\\'")}')" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-red-500 hover:text-red-500 transition-all whitespace-nowrap flex items-center gap-1.5 text-white/30">
+                                <span class="material-symbols-outlined text-xs">delete</span> BORRAR
+                            </button>
+                        </div>
                     </td>
                 `;
                 tableBody.appendChild(tr);
@@ -303,6 +308,21 @@
                 showToast(isPublic ? 'Show publicado en la web ✓' : 'Show ocultado de la web', 'success');
                 const show = allShows.find(s => s.id === id && s.source === source);
                 if (show) show.is_web_public = isPublic;
+            }
+        }
+
+        async function confirmDelete(id, source, name) {
+            if (confirm(`¿Estás seguro de que quieres BORRAR permanentemente el show "${name}"?\n\nEsta acción no se puede deshacer.`)) {
+                const table = source === 'app' ? 'acts' : 'pld_characters';
+                const { error } = await supabaseClient.from(table).delete().eq('id', id);
+                
+                if (error) {
+                    showToast('Error al borrar: ' + error.message, 'error');
+                } else {
+                    showToast('Show eliminado correctamente', 'success');
+                    allShows = allShows.filter(s => !(s.id === id && s.source === source));
+                    renderTable();
+                }
             }
         }
 
