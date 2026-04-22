@@ -312,10 +312,11 @@
     let originalMainImage = '';
     let pendingCoverImage = null;
 
-    // Helper to get youtube embed url (supports regular, shorts, and youtu.be links)
     function getYoutubeId(url) {
         if(!url) return null;
-        let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([^&?/\s]+)/);
+        let finalUrl = typeof url === 'string' ? url : (url.url || '');
+        if (!finalUrl || typeof finalUrl !== 'string') return null;
+        let match = finalUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([^&?/\s]+)/);
         return match ? match[1] : null;
     }
 
@@ -387,7 +388,10 @@
                     const vi = item.video_gallery || [];
                     if (item.video_url) vi.push(item.video_url);
                     ph.forEach(p => { if (p) rawWebGallery.push({url: p, type: 'image'}); });
-                    vi.forEach(v => { if (v && !v.includes('youtube') && !v.includes('vimeo')) rawWebGallery.push({url: v, type: 'video'}); });
+                    vi.forEach(v => {
+                        let vUrl = typeof v === 'string' ? v : (v && v.url ? v.url : null);
+                        if (vUrl) rawWebGallery.push({url: vUrl, type: 'video'});
+                    });
                 } else {
                     const og = item.gallery || [];
                     og.forEach(p => { if (p) rawWebGallery.push({url: p, type: 'image'}); });
@@ -528,7 +532,10 @@
         if (source === 'app') {
             if (currentItem.video_url === url) currentItem.video_url = null;
             if (currentItem.video_gallery) {
-                currentItem.video_gallery = currentItem.video_gallery.filter(v => v !== url);
+                currentItem.video_gallery = currentItem.video_gallery.filter(v => {
+                    let vUrl = typeof v === 'string' ? v : (v && v.url ? v.url : null);
+                    return vUrl !== url;
+                });
             }
         } else {
             if (currentItem.video_url === url) currentItem.video_url = null;
