@@ -221,6 +221,12 @@
         }
 
         // ─── DATA ─────────────────────────────────────────────
+        function goToEdit(id, source) {
+            const encodedId = encodeURIComponent(id);
+            const encodedSource = encodeURIComponent(source);
+            window.location.href = `show-details?id=${encodedId}&source=${encodedSource}&edit=true`;
+        }
+
         async function loadData() {
             try {
                 tableBody.innerHTML = '<tr><td colspan="4" class="p-12 text-center text-white/30 animate-pulse uppercase tracking-widest text-xs">Cargando catálogo...</td></tr>';
@@ -237,7 +243,10 @@
                 const mActs = (acts || []).map(a => ({ ...a, source: 'app', _cover: a.web_cover_image || a.image_url }));
                 const mChars = (chars || []).map(c => ({ ...c, source: 'old-web', _cover: c.web_cover_image || c.image }));
                 
-                allShows = [...mActs, ...mChars].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+                allShows = [...mActs, ...mChars].sort((a, b) => {
+                    if (a.is_web_public === b.is_web_public) return (a.name || '').localeCompare(b.name || '');
+                    return a.is_web_public ? -1 : 1;
+                });
                 renderTable();
             } catch (err) {
                 console.error("Load error:", err);
@@ -247,6 +256,15 @@
 
         function renderTable() {
             tableBody.innerHTML = '';
+            
+            // Sort dynamically every time it renders so changes reflect immediately
+            allShows.sort((a, b) => {
+                const aPub = !!a.is_web_public;
+                const bPub = !!b.is_web_public;
+                if (aPub === bPub) return (a.name || '').localeCompare(b.name || '');
+                return aPub ? -1 : 1;
+            });
+
             const filtered = currentFilter === 'all' ? allShows : allShows.filter(s => s.source === currentFilter);
             
             if (filtered.length === 0) {
@@ -286,9 +304,9 @@
                     </td>
                     <td class="p-4 md:p-6 text-right">
                         <div class="flex justify-end items-center gap-2">
-                            <button onclick="window.location.href='show.html?id=${show.id}&source=${show.source}&edit=true'" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap flex items-center gap-1.5">
-                                <span class="material-symbols-outlined text-xs">edit</span> EDITAR
-                            </button>
+                        <button onclick="goToEdit('${show.id}', '${show.source}')" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-xs">edit</span> EDITAR
+                        </button>
                             <button onclick="confirmDelete('${show.id}', '${show.source}', '${name.replace(/'/g, "\\'")}')" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-red-500 hover:text-red-500 transition-all whitespace-nowrap flex items-center gap-1.5 text-white/30">
                                 <span class="material-symbols-outlined text-xs">delete</span> BORRAR
                             </button>

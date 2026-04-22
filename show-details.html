@@ -102,6 +102,7 @@
         .upload-progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ffb1c1, #4cd7f7); transition: width 0.3s; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="categories.js"></script>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6Q752859X4"></script>
 <script>
@@ -148,6 +149,7 @@
     <div id="error" class="max-w-2xl mx-auto py-24 text-center hidden">
         <span class="material-symbols-outlined text-error text-6xl mb-4">error</span>
         <h2 class="font-headline text-3xl font-bold text-white mb-2 uppercase">Show not found</h2>
+        <p class="text-white/60 mb-8 hidden"></p>
         <a href="the-elements.html" class="text-primary hover:underline font-body uppercase tracking-widest text-xs mt-4 inline-block">Return to The Elements</a>
     </div>
     
@@ -299,8 +301,8 @@
     const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     const urlParams = new URLSearchParams(window.location.search);
-    const showId = urlParams.get('id');
-    const source = urlParams.get('source');
+    const showId = urlParams.get('id')?.trim();
+    const source = urlParams.get('source')?.trim();
     const isEditRequested = urlParams.get('edit') === 'true';
 
     // Editing State Vectors
@@ -319,7 +321,8 @@
 
     async function loadShowDetails() {
         if (!showId || !source) {
-            showError();
+            console.error('Missing showId or source:', { showId, source });
+            showError("Missing parameters in URL. Check the debug info below.");
             return;
         }
 
@@ -331,13 +334,21 @@
             let name = '';
             let category = '';
 
+            const idToUse = isNaN(showId) ? showId : parseInt(showId);
+
             if (source === 'app') {
-                const { data, error } = await supabaseClient.from('acts').select('*').eq('id', showId).single();
-                if (error) throw error;
+                const { data, error } = await supabaseClient.from('acts').select('*').eq('id', idToUse).single();
+                if (error) {
+                    console.error('Acts fetch error:', error);
+                    throw error;
+                }
                 item = data;
             } else {
-                const { data, error } = await supabaseClient.from('pld_characters').select('*').eq('id', showId).single();
-                if (error) throw error;
+                const { data, error } = await supabaseClient.from('pld_characters').select('*').eq('id', idToUse).single();
+                if (error) {
+                    console.error('Characters fetch error:', error);
+                    throw error;
+                }
                 item = data;
             }
 
@@ -352,7 +363,10 @@
             }
 
             // Public visibility check - skip check if admin
-            if (!item.is_web_public && !isAdminMode) throw new Error("Show is not public on web");
+            if (!item.is_web_public && !isAdminMode) {
+                showError("This show is currently private. Please log in as admin to view/edit it.");
+                return;
+            }
 
             name = item.web_custom_title || item.name;
             category = (item.categories && item.categories.length > 0) ? item.categories[0] : item.category;
@@ -523,22 +537,24 @@
     }
 
     // Render category chips
-    const ALL_CATEGORIES = ['Music', 'DJ', 'Singer', 'Dance', 'Gogo', 'Circus', 'Special Act', 'Roaming', 'Character', 'Fire', 'Magic', 'Drag'];
+    const ALL_CATEGORIES = window.PL_CATEGORIES;
     
     function renderCategoryChips(active, editMode) {
         const wrap = document.getElementById('show-categories-wrap');
         wrap.innerHTML = '';
         if (editMode) {
             ALL_CATEGORIES.forEach(cat => {
-                const isActive = active.includes(cat);
+                const isActive = active.some(a => String(a).toLowerCase() === cat.toLowerCase());
                 const chip = document.createElement('button');
                 chip.type = 'button';
                 chip.textContent = cat;
                 chip.className = `px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border transition-all duration-200 ${isActive ? 'bg-primary text-black border-primary shadow-lg shadow-primary/20' : 'bg-white/5 text-white/50 border-white/15 hover:border-primary/50 hover:text-white'}`;
                 chip.onclick = () => {
                     if (isActive) {
-                        currentItem._activeCats = currentItem._activeCats.filter(c => c !== cat);
+                        // Remove case-insensitively
+                        currentItem._activeCats = currentItem._activeCats.filter(c => c.toLowerCase() !== cat.toLowerCase());
                     } else {
+                        // Add
                         currentItem._activeCats = [...(currentItem._activeCats || []), cat];
                     }
                     renderCategoryChips(currentItem._activeCats, true);
@@ -675,6 +691,7 @@
                     updates.video_gallery = currentItem.video_gallery;
                 } else {
                     updates.video_url = currentItem.video_url;
+                    delete updates.categories; // Column does not exist in pld_characters
                 }
                 
                 const table = source === 'app' ? 'acts' : 'pld_characters';
@@ -710,9 +727,13 @@
         });
     }
 
-    function showError() {
+    function showError(customMsg) {
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('error').classList.remove('hidden');
+        const p = document.querySelector('#error p');
+        p.style.display = 'block';
+        p.style.color = '#ffb1c1';
+        p.innerHTML = `${customMsg || 'The performance you are looking for might have been moved or deleted.'}<br><br><div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-top: 20px; font-family: monospace; font-size: 12px; color: #4cd7f7;">Debug info:<br>ID: [${showId}]<br>Source: [${source}]</div>`;
     }
 
     document.addEventListener('DOMContentLoaded', loadShowDetails);
