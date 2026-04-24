@@ -4,7 +4,6 @@ window.PL_CATEGORIES = [
     'DJ', 
     'Singer', 
     'Dance', 
-    'Gogo', 
     'Circus', 
     'Special Act', 
     'Roaming', 
@@ -13,5 +12,6 @@ window.PL_CATEGORIES = [
     'Magic', 
     'Drag',
     'Art',
-    'Led'
+    'Led',
+    'Water'
 ];

@@ -528,7 +528,7 @@
             Character Curation
           </li>
         </ul>
-        <a href="#booking-form" onclick="selectPack('Essential Alchemy')" class="btn-outline w-full justify-center" style="font-size:0.65rem;">SELECT PACK</a>
+        <a href="#booking-form" onclick="selectPack('Pack M — Essential Alchemy')" class="btn-outline w-full justify-center" style="font-size:0.65rem;">SELECT PACK</a>
       </div>
 
       <!-- Pack L — Most Immersive -->
@@ -555,7 +555,7 @@
             Custom Narrative Arc
           </li>
         </ul>
-        <a href="#booking-form" onclick="selectPack('Advanced Immersion')" class="btn-primary w-full justify-center" style="font-size:0.65rem;background:linear-gradient(135deg,#4cd7f7,#0891b2);color:#003640;">SELECT PACK</a>
+        <a href="#booking-form" onclick="selectPack('Pack L — Advanced Immersion')" class="btn-primary w-full justify-center" style="font-size:0.65rem;background:linear-gradient(135deg,#4cd7f7,#0891b2);color:#003640;">SELECT PACK</a>
       </div>
 
       <!-- Pack XL -->
@@ -581,7 +581,7 @@
             Global Performer Roster
           </li>
         </ul>
-        <a href="#booking-form" onclick="selectPack('The Masterpiece')" class="btn-outline w-full justify-center" style="font-size:0.65rem;color:#ffb1c1;border-color:rgba(255,177,193,0.3);">SELECT PACK</a>
+        <a href="#booking-form" onclick="selectPack('Pack XL — The Masterpiece')" class="btn-outline w-full justify-center" style="font-size:0.65rem;color:#ffb1c1;border-color:rgba(255,177,193,0.3);">SELECT PACK</a>
       </div>
 
     </div><!-- /packs grid -->
@@ -603,6 +603,78 @@
   </div>
 </div>
 
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT / BOOKING SECTION
+═══════════════════════════════════════════ -->
+<section id="contact" class="py-24 px-8 bg-[#0d0d0d]">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-16">
+    <div class="flex-1 w-full">
+      <div class="text-xl font-bold text-white mb-4 font-headline uppercase tracking-tighter" style="color:#ffb1c1;">PERFORMANCE LAB</div>
+      <h2 id="cta-title" class="font-headline text-5xl font-bold text-white mb-8">LET'S CREATE <br/><span class="text-primary" style="color:#4cd7f7;">MAGIC.</span></h2>
+      
+      <!-- Contact Form -->
+      <form id="booking-form" class="glass-card p-8 rounded-xl max-w-xl space-y-6 mb-12" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(10px);">
+        <input type="hidden" name="_subject" value="New Event Brief — Performance Lab (Experiences)">
+        <h3 class="font-headline font-bold text-white text-2xl mb-4">Event Brief</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-1">
+            <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Full Name</label>
+            <input name="name" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-[#4cd7f7] outline-none" placeholder="Enter your name" type="text" required/>
+          </div>
+          <div class="space-y-1">
+            <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Email Address</label>
+            <input name="email" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-[#4cd7f7] outline-none" placeholder="name@email.com" type="email" required/>
+          </div>
+          <div class="space-y-1">
+            <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Date</label>
+            <input name="event_date" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-[#4cd7f7] outline-none [color-scheme:dark]" type="date" required/>
+          </div>
+          <div class="space-y-1">
+            <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Type</label>
+            <select name="event_type" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-[#4cd7f7] focus:bg-white/10 outline-none" required>
+                <option value="" disabled selected>Select event type</option>
+                <option value="Wedding" class="bg-[#1b1b1b]">Wedding</option>
+                <option value="Corporate" class="bg-[#1b1b1b]">Corporate</option>
+                <option value="Club / Nightlife" class="bg-[#1b1b1b]">Club / Nightlife</option>
+                <option value="Private Celebration" class="bg-[#1b1b1b]">Private Celebration</option>
+                <option value="Other" class="bg-[#1b1b1b]">Other</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="space-y-1">
+          <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Approximate Budget (€)</label>
+          <input name="budget" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-[#4cd7f7] outline-none" placeholder="e.g. 5000" type="number" min="0"/>
+        </div>
+        
+        <div class="space-y-1">
+          <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">What are you looking for?</label>
+          <textarea name="message" class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-white bg-white/5 border border-white/10 focus:border-[#4cd7f7] outline-none" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
+        </div>
+        
+        <button type="submit" class="w-full bg-[#4cd7f7] text-[#003640] py-4 rounded-lg font-headline font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all">SEND EVENT BRIEF</button>
+      </form>
+      
+      <div class="flex flex-wrap gap-4">
+        <a href="https://wa.me/34630787144" target="_blank" class="border border-white/20 text-white px-8 py-3 rounded-lg font-headline font-bold uppercase text-xs tracking-widest hover:border-[#4cd7f7] transition-all inline-block text-center">WHATSAPP HUB</a>
+      </div>
+    </div>
+    
+    <div class="flex-1 flex flex-col md:items-end justify-between self-stretch">
+      <div class="grid grid-cols-2 gap-x-16 gap-y-4 mb-12">
+        <a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://www.instagram.com/performancelabshows" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+        <a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://wa.me/34630787144" target="_blank" rel="noopener noreferrer">WHATSAPP</a>
+        <a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://www.linkedin.com/company/performance-lab-ibiza" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+        <a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="#booking-form">CONTACT</a>
+      </div>
+      <div class="font-['Inter'] text-xs uppercase tracking-widest text-white/30">
+        © 2024 PERFORMANCE LAB. ALL RIGHTS RESERVED.
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
@@ -772,14 +844,14 @@ document.addEventListener('DOMContentLoaded', initCounters);
   });
 
   // ── Contact form fade in ───────────────────────────────────
-  gsap.fromTo('#contact-form-card',
+  gsap.fromTo('#booking-form',
     { opacity: 0, y: 40 },
     {
       opacity: 1, y: 0,
       duration: 0.9,
       ease: 'power3.out',
       scrollTrigger: {
-        trigger: '#contact-form-card',
+        trigger: '#booking-form',
         start: 'top 85%',
         toggleActions: 'play none none none'
       }
