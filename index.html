@@ -707,46 +707,90 @@ document.addEventListener("DOMContentLoaded", () => {
     </div><!-- /grid -->
   </div>
 </section>
-<!-- The Lab in Action (Masonry Gallery) -->
+<!-- The Lab in Action (Dynamic carousel from Supabase) -->
 <section class="py-24 px-8 bg-background">
 <div class="max-w-7xl mx-auto">
 <h2 class="font-headline text-4xl font-bold text-white mb-12 text-center uppercase tracking-tighter">THE LAB IN <span class="kinetic-italic text-secondary">ACTION</span></h2>
-<div class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar">
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group shadow-2xl">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Immersive performance featuring mirror crew" src="https://euphonious-kelpie-cd0a27.netlify.app/images/char_mirror_family_fix_final.jpg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<!-- Loading skeleton -->
+<div id="home-lab-loading" class="flex overflow-x-auto gap-6 pb-8">
+    <div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl bg-white/5 animate-pulse"></div>
+    <div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl bg-white/5 animate-pulse"></div>
+    <div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl bg-white/5 animate-pulse"></div>
 </div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group shadow-2xl">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Massive stage production with lasers in mega-club" src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=1200"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group shadow-2xl">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Teddy Monster interactive roaming character" src="https://euphonious-kelpie-cd0a27.netlify.app/images/char_teddy_monster_hero_final.jpg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group shadow-2xl">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Breathtaking performarce at a luxury outdoor event" src="images/elements_circus.png"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group shadow-2xl">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="High-impact LED dancers performing" src="images/elements_dance.png"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group shadow-2xl">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Stunning premium singer performance at an upscale event" src="images/singer.png"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group shadow-2xl">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Premium DJ performance at a high-end club" src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group shadow-2xl">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Confetti falling over a wildly energetic concert crowd" src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=1200"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-</div>
-</div>
+<!-- Carousel rendered by JS -->
+<div id="home-lab-carousel" class="hidden flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar"></div>
 </div>
 </section>
+<script>
+(async function loadHomeLabInAction() {
+    const carousel = document.getElementById('home-lab-carousel');
+    const loading  = document.getElementById('home-lab-loading');
+
+    try {
+        // Reuse existing supabaseClient if available, otherwise create one
+        const sb = (typeof supabaseClient !== 'undefined') ? supabaseClient :
+            window.supabase.createClient(
+                'https://nwxepstpedmxslbznejv.supabase.co',
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM'
+            );
+
+        const [{ data: acts }, { data: chars }] = await Promise.all([
+            sb.from('acts').select('name, web_custom_title, image_url, web_cover_image, web_gallery').eq('is_web_public', true),
+            sb.from('pld_characters').select('name, web_custom_title, image, web_cover_image, web_gallery').eq('is_web_public', true)
+        ]);
+
+        const entries = [];
+
+        function addImages(items, coverKey, imgKey) {
+            (items || []).forEach(item => {
+                const actName = item.web_custom_title || item.name || '';
+                const cover = item[coverKey] || item[imgKey];
+                if (cover && typeof cover === 'string') entries.push({ url: cover, name: actName });
+
+                let gallery = item.web_gallery || [];
+                if (typeof gallery === 'string') { try { gallery = JSON.parse(gallery); } catch(e) { gallery = []; } }
+                (Array.isArray(gallery) ? gallery : []).forEach(g => {
+                    const u = typeof g === 'string' ? g : (g && g.url);
+                    if (u && typeof u === 'string' && !u.match(/\.(mp4|webm|mov|avi)(\?|$)/i) && !u.includes('youtube') && !u.includes('youtu.be')) {
+                        entries.push({ url: u, name: actName });
+                    }
+                });
+            });
+        }
+
+        addImages(acts,  'web_cover_image', 'image_url');
+        addImages(chars, 'web_cover_image', 'image');
+
+        entries.sort(() => Math.random() - 0.5);
+        const slides = entries.slice(0, 20);
+
+        if (slides.length === 0) { loading.closest('section').style.display = 'none'; return; }
+
+        slides.forEach(({ url, name }) => {
+            const div = document.createElement('div');
+            div.className = 'snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group cursor-pointer shadow-2xl';
+            div.innerHTML = `
+                <img src="${url}" alt="${name} — Performance Lab" loading="lazy"
+                     class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
+                     onerror="this.closest('.snap-center').remove()">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end p-6">
+                    <span class="font-headline font-bold text-white text-sm uppercase tracking-widest">${name}</span>
+                </div>
+            `;
+            carousel.appendChild(div);
+        });
+
+        loading.classList.add('hidden');
+        carousel.classList.remove('hidden');
+        carousel.classList.add('flex');
+
+    } catch(err) {
+        console.warn('[PL] Home Lab in Action load failed:', err);
+        loading.closest('section').style.display = 'none';
+    }
+})();
+</script>
+
 
 <!-- Footer -->
 <footer class="bg-[#0e0e0e] w-full py-16 px-8 border-t border-white/10 overflow-hidden">
