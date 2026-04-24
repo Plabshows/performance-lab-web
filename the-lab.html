@@ -105,6 +105,11 @@
     </style>
     <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* hide scrollbar while keeping scroll */
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
 </head>
 <body class="bg-background text-on-background">
 <!-- TopNavBar -->
@@ -194,32 +199,98 @@
 </div>
 </div>
 </section>
-<!-- The Lab in Action (Masonry Gallery) -->
+<!-- The Lab in Action (Dynamic carousel from Supabase) -->
 <section class="py-24 px-8 bg-background">
 <div class="max-w-7xl mx-auto">
 <h2 class="font-headline text-4xl font-bold text-white mb-12 text-center uppercase tracking-tighter">THE LAB IN <span class="kinetic-italic text-secondary">ACTION</span></h2>
-<div class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar">
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Vibrant concert stage with pink and blue laser lights and a silhouetted crowd" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgI7EqcdbdqnC42CHQVhZumu7AUO1pDr01nZqqAo2A4sftaiejtd_aDm5p_4DWYaBMvKvPN-fbC0GqHjUm_8SBQdcBLZwSwzIK19ok4APzz4H55Utw8p7tJ8kdath62k7LsYjcxMvOtpf0yQhXuwG3Q4O3marRN9Q5FAPa-kRlXyjqF2dNi7tX2PNiust7B2OW4I8eDuItv9GYLInIRVB36mN6yCk_ufxjdV9jjZZOLyAmTePdafIP4zvKhFCfJtr14aUTNpZgeU4"/>
+<!-- Loading skeleton -->
+<div id="lab-action-loading" class="flex overflow-x-auto gap-6 pb-8">
+    <div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl bg-white/5 animate-pulse"></div>
+    <div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl bg-white/5 animate-pulse"></div>
+    <div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl bg-white/5 animate-pulse"></div>
 </div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="DJ at work in a dark, atmospheric nightclub with red neon accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiEeIUlIEKmrbRLIPvX0NzmgztsFRKRb1IrVUzNrEuY79aY6YL1PJNRw5CP7Cep5jyfbdQheA8JRa21xJMoqBM5VfGKOQVJ68m7hFUvvH4vt4PTvSb2JtFBQB2MCW4pDL8R7EjmAJLzvK6TGdkWQWRox7F7bhL708Zh25iA-db0Nr0ASrlXXpdvsCSEgXbvbb5ljuKJKb-Q6QLn9GxZt7vFiPVUPyRNntBZDLuPhbvFY75z2WBlvIQC8fyhqrXWI1ckfHwWB-Lryo"/>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Crowd at a music festival under a starry night sky with bright stage lights in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV8urmB7dS4Rxe901t4GvLN9IT3RNcGcW9bgK48o9dXq5y5-HnhwySF49l8GXmLYpp3j-I5WyQELNpPXf-6RWeZRsagq8tAs58L0xf48OKEeimoPNr8xcEnB8ljmMR8GyPg3HHHBTWmTstXmIvHXotkEqqoWyMeTUgUDOfLTdcme7Y919IDRrKClG4MWKxgJjkUkK0h3S6WtjptPyDssbqeugzil1F80nL7jPL8-WRmrTLG1MfMrwwv01UQZAZON9uS8M6LAEihas"/>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Performers in mirror suits reflecting stage lights during a luxury event" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpSCuufx4ntTP4TXcsKZDyrwZ0dsGz1NNNKsX76zFH_sfgtrP7QynfGlz-TmYM-S6vIz5o8_nKLapyK4JdegHlzJfOHTHzVxEVD_y4zOEecbq-Scs9fwBNg3WXUwkPKcWUAy2cjSLECsE-X7b5qmwhrIEWnZJp1trmbGNpUMrafc_G3HkBedkkquXGHUzKo7nUcAE0eQxGsq06Bi8YUB5vaHFJi-t5fdcQulWKmzeq0-vMCgZyha7h-2MPMG5PrFKlKalRQj7XwX0"/>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Dramatic silhouette of a dancer against a giant circular light source" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKL-0b6B_iLQubYhP6Y6BKJ0yngru4vw2b1aZGo3hzUoOuVbC84YoIbLjr35tD0WMGdMtYCH4xlp06aM7DGzTMi6CPskg0kpncGk6qFVJp7j4Oc8NWzqLl9SfiZTmWepesj24hjh68yF-CIBAnGC4iw9AkFxK9p7cWWkgf7DbDef2nQyDSo-plEwT9aefYMcTP1rT9ZB2HgqUOrfjBEXdlfFZXqeli6vBVaBice2XoxbP1bIzvmEMyD7gtNPMbsLIpoxrjhpgtxUQ"/>
-</div>
-<div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Abstract shot of confetti falling in slow motion over a celebrating crowd in a dark venue" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnfdG-oAV61zGVg1KNs0r5xko_ZOBe9MhHC_8y3NdbnamM4e9QsqPmjalPA_ks7Cz00TL4j76VkTwb4-NWbCV-NGmExrGMgU9-WhXvndZDlhtdpeMZkvHyij7Qq-VPKzBfSwuEX8y-mzI2ctAYSApEOnAj4QqFaVpB_z2sm7LSZmplxZ4KRftEbGM_stNJzqyq3DtaANnvppe2IcNT1aTPdU-giOffXaF1pLtOAVRtFvj0YO9CCmuP9CfRbmQREu7WCcWb74vx6Vk"/>
-</div>
-</div>
+<!-- Carousel rendered by JS -->
+<div id="lab-action-carousel" class="hidden flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar"></div>
 </div>
 </section>
+<script>
+(async function loadLabInAction() {
+    const SUPABASE_URL = 'https://nwxepstpedmxslbznejv.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM';
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const carousel = document.getElementById('lab-action-carousel');
+    const loading  = document.getElementById('lab-action-loading');
+
+    try {
+        // Fetch both tables in parallel
+        const [{ data: acts }, { data: chars }] = await Promise.all([
+            sb.from('acts').select('name, web_custom_title, image_url, web_cover_image, web_gallery').eq('is_web_public', true),
+            sb.from('pld_characters').select('name, web_custom_title, image, web_cover_image, web_gallery').eq('is_web_public', true)
+        ]);
+
+        // Collect all usable image URLs with their act name
+        const entries = [];
+
+        function addImages(items, coverKey, imgKey) {
+            (items || []).forEach(item => {
+                const actName = item.web_custom_title || item.name || '';
+                // Cover image
+                const cover = item[coverKey] || item[imgKey];
+                if (cover && typeof cover === 'string') entries.push({ url: cover, name: actName });
+
+                // Gallery images (exclude videos)
+                let gallery = item.web_gallery || [];
+                if (typeof gallery === 'string') { try { gallery = JSON.parse(gallery); } catch(e) { gallery = []; } }
+                (Array.isArray(gallery) ? gallery : []).forEach(g => {
+                    const u = typeof g === 'string' ? g : (g && g.url);
+                    if (u && typeof u === 'string' && !u.match(/\.(mp4|webm|mov|avi)(\?|$)/i) && !u.includes('youtube') && !u.includes('youtu.be')) {
+                        entries.push({ url: u, name: actName });
+                    }
+                });
+            });
+        }
+
+        addImages(acts,  'web_cover_image', 'image_url');
+        addImages(chars, 'web_cover_image', 'image');
+
+        // Shuffle for variety
+        entries.sort(() => Math.random() - 0.5);
+
+        // Limit to 20 slides max
+        const slides = entries.slice(0, 20);
+
+        if (slides.length === 0) {
+            // Fallback: hide section gracefully
+            loading.closest('section').style.display = 'none';
+            return;
+        }
+
+        slides.forEach(({ url, name }) => {
+            const div = document.createElement('div');
+            div.className = 'snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group cursor-pointer';
+            div.innerHTML = `
+                <img src="${url}" alt="${name} — Performance Lab" loading="lazy"
+                     class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
+                     onerror="this.closest('.snap-center').remove()">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end p-6">
+                    <span class="font-headline font-bold text-white text-sm uppercase tracking-widest">${name}</span>
+                </div>
+            `;
+            carousel.appendChild(div);
+        });
+
+        // Swap skeleton for real carousel
+        loading.classList.add('hidden');
+        carousel.classList.remove('hidden');
+        carousel.classList.add('flex');
+
+    } catch(err) {
+        console.warn('[PL] Lab in Action load failed:', err);
+        loading.closest('section').style.display = 'none';
+    }
+})();
+</script>
 </main>
 <!-- Footer -->
 <footer class="bg-[#0e0e0e] w-full py-16 px-8 border-t border-white/10 overflow-hidden">
