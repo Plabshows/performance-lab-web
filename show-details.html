@@ -141,6 +141,38 @@
     <a href="#booking-form" class="mobile-menu-link font-headline font-black text-2xl uppercase tracking-widest text-[#ffb1c1]/60 mt-4 border border-[#ffb1c1]/20 px-8 py-3 rounded-full" onclick="closeMobileMenu()">BOOK NOW</a>
 </div>
 
+<style>
+    /* Hero background blur effect */
+    #hero-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-size: cover;
+        background-position: center top;
+        filter: blur(60px) saturate(1.4);
+        transform: scale(1.15);
+        opacity: 0;
+        transition: opacity 1.2s ease;
+    }
+    #hero-bg.loaded { opacity: 0.18; }
+    #hero-bg-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(
+            to bottom,
+            rgba(19,19,19,0.55) 0%,
+            rgba(19,19,19,0.72) 40%,
+            rgba(19,19,19,0.95) 100%
+        );
+        pointer-events: none;
+    }
+</style>
+
+<!-- Hero background image (blurred, translucent) -->
+<div id="hero-bg"></div>
+<div id="hero-bg-overlay"></div>
+
 <main class="pt-32 pb-24 px-8 min-h-screen">
     <div id="loading" class="text-center py-24">
         <span class="material-symbols-outlined animate-spin text-4xl text-primary block mx-auto w-fit">progress_activity</span>
@@ -406,16 +438,32 @@
             // Fill Hero
             document.getElementById('show-name').textContent = name;
             
-            // Render categories as chips
             const cats = item.categories && item.categories.length > 0 ? item.categories : (item.category ? [item.category] : []);
             currentItem._activeCats = [...cats];
             renderCategoryChips(cats, false);
             
-            document.getElementById('show-description').textContent = description;
+            document.getElementById('show-name').textContent = name;
             
             const imageEl = document.getElementById('show-image');
-            imageEl.src = pendingCoverImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800';
-
+            const heroBg  = document.getElementById('hero-bg');
+            const coverSrc = pendingCoverImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800';
+            imageEl.src = coverSrc;
+            // Set hero background: pick a random gallery image (no videos), fallback to cover
+            if (heroBg) {
+                const galleryImages = editableGallery
+                    .map(g => typeof g === 'string' ? g : (g && g.url))
+                    .filter(u => u && typeof u === 'string'
+                        && !u.match(/\.(mp4|webm|mov|avi)(\?|$)/i)
+                        && !u.includes('youtube')
+                        && !u.includes('youtu.be'));
+                const pool = galleryImages.length > 0 ? galleryImages : (coverSrc ? [coverSrc] : []);
+                const bgSrc = pool[Math.floor(Math.random() * pool.length)] || coverSrc;
+                heroBg.style.backgroundImage = `url('${bgSrc}')`;
+                setTimeout(() => heroBg.classList.add('loaded'), 120);
+            }
+            
+            document.getElementById('show-description').textContent = description;
+            
             // Build initial gallery
             renderGallery();
 
