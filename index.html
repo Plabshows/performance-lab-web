@@ -407,7 +407,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <!-- Music & Sound -->
       <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;" onclick="window.location.href='the-elements.html'">
-        <img src="images/elements_music.png" alt="Music & Sound" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <img id="elements-img-music" src="images/elements_music.png" alt="Music & Sound" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
         <!-- Dark gradient base always visible -->
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
         <!-- Overlay on hover -->
@@ -431,7 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <!-- Dance & Stage -->
       <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;" onclick="window.location.href='the-elements.html'">
-        <img src="images/elements_dance.png" alt="Dance & Stage" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <img id="elements-img-stage" src="images/elements_dance.png" alt="Dance & Stage" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         <div class="absolute bottom-0 left-0 right-0 p-7 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
@@ -452,7 +452,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <!-- Circus & Special Acts -->
       <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;" onclick="window.location.href='the-elements.html'">
-        <img src="images/elements_circus.png" alt="Circus & Special Acts" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <img id="elements-img-circus" src="images/elements_circus.png" alt="Circus & Special Acts" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         <div class="absolute bottom-0 left-0 right-0 p-7 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
@@ -473,7 +473,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <!-- Roaming Characters -->
       <div class="elements-card group relative rounded-2xl overflow-hidden cursor-pointer" style="height:480px;" onclick="window.location.href='the-elements.html'">
-        <img src="images/elements_roaming.png" alt="Roaming Characters" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <img id="elements-img-immersive" src="images/elements_roaming.png" alt="Roaming Characters" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         <div class="absolute bottom-0 left-0 right-0 p-7 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
@@ -1262,6 +1262,52 @@ function escapeHtml(str) {
     this.style.boxShadow = '0 4px 20px rgba(37,211,102,0.4)';
     this.style.transform = 'scale(1)';
   });
+
+  // Dynamic Elements Images
+  (async function initElementsImages() {
+      const SB_URL = 'https://nwxepstpedmxslbznejv.supabase.co';
+      const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM';
+      
+      const config = {
+          'elements-img-music': ['Musicians', 'DJ', 'Singers', 'Singer', 'Music'],
+          'elements-img-stage': 'https://nwxepstpedmxslbznejv.supabase.co/storage/v1/object/public/web-media/covers/1777034514667-inux0b2ow1j.jpeg',
+          'elements-img-circus': 'https://nwxepstpedmxslbznejv.supabase.co/storage/v1/object/public/web-media/covers/1777047313724-k9gtje5boor.PNG',
+          'elements-img-immersive': 'https://nwxepstpedmxslbznejv.supabase.co/storage/v1/object/public/web-media/covers/1777042995818-zw837q03q1m.jpg'
+      };
+
+      try {
+          const sb = window.supabase.createClient(SB_URL, SB_KEY);
+          const [{data:acts},{data:chars}] = await Promise.all([
+              sb.from('acts').select('category,web_cover_image,image_url').eq('is_web_public', true),
+              sb.from('pld_characters').select('category,web_cover_image,image').eq('is_web_public', true)
+          ]);
+
+          const pool = [...(acts || []), ...(chars || [])];
+
+          Object.keys(config).forEach(imgId => {
+              const val = config[imgId];
+              if (typeof val === 'string') {
+                  document.getElementById(imgId).src = val;
+              } else {
+                  const cats = val;
+                  const matches = pool.filter(item => {
+                      const itemCat = item.category || '';
+                      return cats.some(c => itemCat.toLowerCase() === c.toLowerCase());
+                  });
+
+                  if (matches.length > 0) {
+                      const randomMatch = matches[Math.floor(Math.random() * matches.length)];
+                      const imgUrl = randomMatch.web_cover_image || randomMatch.image_url || randomMatch.image;
+                      if (imgUrl) {
+                          document.getElementById(imgId).src = imgUrl;
+                      }
+                  }
+              }
+          });
+      } catch (e) {
+          console.error('Error fetching elements images:', e);
+      }
+  })();
 </script>
 </body></html>
 
