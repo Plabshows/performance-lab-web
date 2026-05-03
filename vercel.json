@@ -2,7 +2,12 @@
   "redirects": [
     {
       "source": "/services/:slug",
-      "destination": "/the-elements",
+      "destination": "/the-elements.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/:slug/",
+      "destination": "/the-elements.html",
       "permanent": true
     }
   ],
