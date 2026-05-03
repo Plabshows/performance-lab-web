@@ -102,7 +102,7 @@
         .upload-progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ffb1c1, #4cd7f7); transition: width 0.3s; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="categories.js"></script>
+<script src="/categories.js"></script>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6Q752859X4"></script>
 <script>
@@ -115,12 +115,12 @@
 <body class="bg-background text-on-background">
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 bg-[#131313]/60 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.8)] flex justify-between items-center px-8 py-6 max-w-[1920px] mx-auto">
-    <a href="index.html" class="text-2xl font-black italic text-[#ffb1c1] tracking-tighter font-headline hover:scale-105 transition-transform duration-300">PERFORMANCE LAB</a>
+    <a href="/index.html" class="text-2xl font-black italic text-[#ffb1c1] tracking-tighter font-headline hover:scale-105 transition-transform duration-300">PERFORMANCE LAB</a>
     <!-- Desktop menu -->
     <div class="hidden md:flex gap-8 items-center">
-        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="the-lab.html">The Lab</a>
-        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#4cd7f7] border-b-2 border-[#4cd7f7] pb-1 transition-all duration-300 hover:scale-105" href="the-elements.html">The Elements</a>
-        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="experiences.html">The Experiences</a>
+        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="/the-lab.html">The Lab</a>
+        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#4cd7f7] border-b-2 border-[#4cd7f7] pb-1 transition-all duration-300 hover:scale-105" href="/the-elements.html">The Elements</a>
+        <a class="font-headline font-bold uppercase tracking-[0.1em] text-sm text-[#e2e2e2] hover:text-[#ffb1c1] transition-all duration-300 hover:scale-105" href="/experiences.html">The Experiences</a>
     </div>
     <div class="flex items-center gap-4">
         <a href="#booking-form" class="hidden md:inline-block bg-primary text-on-primary px-6 py-2 rounded-lg font-headline font-bold uppercase tracking-[0.1em] text-xs hover:scale-105 active:scale-95 transition-all duration-300 text-center shadow-[0_0_20px_rgba(255,177,193,0.3)]">BOOK NOW</a>
@@ -135,9 +135,9 @@
 
 <!-- Mobile Dropdown Menu -->
 <div id="mobile-menu" class="fixed top-0 left-0 w-full h-screen z-40 bg-[#0d0d0d]/97 backdrop-blur-2xl flex flex-col items-center justify-center gap-10 transform -translate-y-full transition-transform duration-500 ease-in-out">
-    <a href="the-lab.html" class="mobile-menu-link font-headline font-black text-4xl uppercase tracking-tight text-white hover:text-[#ffb1c1] transition-colors" onclick="closeMobileMenu()">The Lab</a>
-    <a href="the-elements.html" class="mobile-menu-link font-headline font-black text-4xl uppercase tracking-tight text-[#4cd7f7] transition-colors" onclick="closeMobileMenu()">The Elements</a>
-    <a href="experiences.html" class="mobile-menu-link font-headline font-black text-4xl uppercase tracking-tight text-white hover:text-[#ffb1c1] transition-colors" onclick="closeMobileMenu()">The Experiences</a>
+    <a href="/the-lab.html" class="mobile-menu-link font-headline font-black text-4xl uppercase tracking-tight text-white hover:text-[#ffb1c1] transition-colors" onclick="closeMobileMenu()">The Lab</a>
+    <a href="/the-elements.html" class="mobile-menu-link font-headline font-black text-4xl uppercase tracking-tight text-[#4cd7f7] transition-colors" onclick="closeMobileMenu()">The Elements</a>
+    <a href="/experiences.html" class="mobile-menu-link font-headline font-black text-4xl uppercase tracking-tight text-white hover:text-[#ffb1c1] transition-colors" onclick="closeMobileMenu()">The Experiences</a>
     <a href="#booking-form" class="mobile-menu-link font-headline font-black text-2xl uppercase tracking-widest text-[#ffb1c1]/60 mt-4 border border-[#ffb1c1]/20 px-8 py-3 rounded-full" onclick="closeMobileMenu()">BOOK NOW</a>
 </div>
 
@@ -182,11 +182,11 @@
         <span class="material-symbols-outlined text-error text-6xl mb-4">error</span>
         <h2 class="font-headline text-3xl font-bold text-white mb-2 uppercase">Show not found</h2>
         <p class="text-white/60 mb-8 hidden"></p>
-        <a href="the-elements.html" class="text-primary hover:underline font-body uppercase tracking-widest text-xs mt-4 inline-block">Return to The Elements</a>
+        <a href="/the-elements.html" class="text-primary hover:underline font-body uppercase tracking-widest text-xs mt-4 inline-block">Return to The Elements</a>
     </div>
     
     <div id="content" class="max-w-7xl mx-auto hidden">
-        <a href="the-elements.html" class="inline-flex items-center gap-2 text-white/50 hover:text-white mb-8 transition-colors font-headline uppercase text-xs tracking-widest">
+        <a href="/the-elements.html" class="inline-flex items-center gap-2 text-white/50 hover:text-white mb-8 transition-colors font-headline uppercase text-xs tracking-widest">
             <span class="material-symbols-outlined text-sm">arrow_back</span>
             Back to Catalog
         </a>
@@ -255,7 +255,7 @@
                 </div>
             </div>
             <div class="flex gap-4 w-full md:w-auto">
-                <a href="admin.html" class="flex-1 md:flex-none text-center px-6 py-3 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-all text-white/70">Cancel</a>
+                <a href="/admin.html" class="flex-1 md:flex-none text-center px-6 py-3 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-all text-white/70">Cancel</a>
                 <button id="admin-save-btn" class="flex-1 md:flex-none text-center px-8 py-3 bg-primary text-black rounded-lg text-xs font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
                     <span class="material-symbols-outlined text-sm">save</span> GUARDAR CAMBIOS
                 </button>
@@ -610,7 +610,7 @@
     }
 
     // Render category chips
-    const ALL_CATEGORIES = window.PL_CATEGORIES;
+    const ALL_CATEGORIES = window.PL_CATEGORIES || [];
     
     function renderCategoryChips(active, editMode) {
         const wrap = document.getElementById('show-categories-wrap');
@@ -772,7 +772,7 @@
                 if (error) throw error;
                 
                 btn.innerHTML = '<span class="material-symbols-outlined text-sm">check_circle</span> GUARDADO O.K.';
-                setTimeout(() => window.location.href = 'admin.html', 1500);
+                setTimeout(() => window.location.href = '/admin.html', 1500);
             } catch(err) {
                 alert("Error al guardar: " + err.message);
                 btn.innerHTML = 'ERROR AL GUARDAR';
@@ -811,7 +811,7 @@
 
     document.addEventListener('DOMContentLoaded', loadShowDetails);
 </script>
-<script src="booking-handler.js"></script>
+<script src="/booking-handler.js"></script>
 <!-- WhatsApp Floating Button -->
 <a id="wa-float" href="https://wa.me/34630787144?text=Hi!%20I%27m%20interested%20in%20booking%20Performance%20Lab" target="_blank" rel="noopener noreferrer"
    aria-label="Contact us on WhatsApp"
