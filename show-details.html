@@ -4,8 +4,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>PERFORMANCE LAB | SHOW DETAIL</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#131313">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -273,25 +275,25 @@
 <div class="flex-1 w-full">
 <div class="text-xl font-bold text-white mb-4 font-headline uppercase tracking-tighter">PERFORMANCE LAB</div>
 <h2 class="font-headline text-5xl font-bold text-white mb-8">LET'S CREATE <br/><span class="kinetic-italic text-primary">MAGIC.</span></h2>
-<form id="booking-form" class="glass-card p-8 rounded-xl max-w-xl space-y-6 mb-12">
+<form id="booking-form" class="bg-white p-8 rounded-xl max-w-xl space-y-6 mb-12 shadow-2xl">
 <input type="hidden" name="_subject" value="New Event Brief — Performance Lab (Show Detail)">
-<h3 class="font-headline font-bold text-white text-2xl mb-4">Event Brief</h3>
+<h3 class="font-headline font-bold text-black text-2xl mb-4">Event Brief</h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Full Name</label>
-<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white placeholder:text-gray-500" name="name" placeholder="Enter your name" type="text" required/>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Full Name</label>
+<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" name="name" placeholder="Enter your name" type="text" required/>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Email Address</label>
-<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white placeholder:text-gray-500" name="email" placeholder="name@email.com" type="email" required/>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Email Address</label>
+<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" name="email" placeholder="name@email.com" type="email" required/>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Date</label>
-<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white [color-scheme:light]" name="event_date" type="date" required/>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Event Date</label>
+<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 [color-scheme:light] focus:border-primary outline-none" name="event_date" type="date" required/>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Type</label>
-<select name="event_type" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-white/10 focus:border-primary focus:bg-white outline-none" required>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Event Type</label>
+<select name="event_type" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 focus:border-primary outline-none" required>
     <option value="" disabled selected>Select event type</option>
     <option value="wedding" class="bg-white text-black">Wedding</option>
     <option value="corporate" class="bg-white text-black">Corporate</option>
@@ -302,14 +304,14 @@
 </div>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Approximate Budget (€)</label>
-<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white placeholder:text-gray-500" name="budget" placeholder="e.g. 5000" type="number" min="0"/>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Approximate Budget (€)</label>
+<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" name="budget" placeholder="e.g. 5000" type="number" min="0"/>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">What are you looking for?</label>
-<textarea class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-black bg-white placeholder:text-gray-500" name="message" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">What are you looking for?</label>
+<textarea class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" name="message" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
 </div>
-<button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all">SEND EVENT BRIEF</button>
+<button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline font-bold uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-primary/20">SEND EVENT BRIEF</button>
 </form>
 <div class="flex flex-wrap gap-4">
 <button class="bg-white/5 border border-white/10 text-white px-8 py-3 rounded-lg font-headline font-bold uppercase text-xs tracking-widest hover:bg-white/10 transition-all">CONTACT THE LAB</button>
@@ -331,13 +333,21 @@
 </footer>
 
 <script>
-    const supabaseUrl = 'https://nwxepstpedmxslbznejv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM';
-    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+    let supabaseClient = null;
+
+    function initSupabase() {
+        if (window.supabase && !supabaseClient) {
+            const supabaseUrl = 'https://nwxepstpedmxslbznejv.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM';
+            supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+            return true;
+        }
+        return !!supabaseClient;
+    }
 
     const urlParams = new URLSearchParams(window.location.search);
-    // Support both ?show=slug (old format) and /experiences/slug (SEO path format)
-    const pathSlug = window.location.pathname.split('/').filter(Boolean).pop();
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    const pathSlug = pathParts.length >= 2 && pathParts[0] === 'experiences' ? pathParts[1] : pathParts.pop();
     const isPathSlug = !urlParams.get('show') && pathSlug && pathSlug !== 'show-details.html';
     const showParam = (urlParams.get('show') || (isPathSlug ? pathSlug : '')).trim() || null;
     let source = ''; // Will be determined by which table it's found in
@@ -364,38 +374,40 @@
             showError("Missing parameters in URL. Check the debug info below.");
             return;
         }
+        
+        if (!initSupabase()) {
+            showError("Database library not loaded. Please check your connection and refresh the page.");
+            return;
+        }
 
         try {
             let item = null;
-            let images = [];
-            let videos = [];
             let description = '';
             let name = '';
-            let category = '';
 
             // First try acts by slug
-            let { data, error } = await supabaseClient.from('acts').select('*').eq('slug', showParam).single();
-            if (data && !error) {
-                item = data;
+            let { data: actsBySlug } = await supabaseClient.from('acts').select('*').eq('slug', showParam);
+            if (actsBySlug && actsBySlug.length > 0) {
+                item = actsBySlug[0];
                 source = 'app';
             } else {
                 // Try pld_characters by slug
-                let { data: charData, error: charError } = await supabaseClient.from('pld_characters').select('*').eq('slug', showParam).single();
-                if (charData && !charError) {
-                    item = charData;
+                let { data: charsBySlug } = await supabaseClient.from('pld_characters').select('*').eq('slug', showParam);
+                if (charsBySlug && charsBySlug.length > 0) {
+                    item = charsBySlug[0];
                     source = 'old-web';
                 } else {
                     // Fallback to searching by name if the database hasn't updated its slug cache yet
                     let nameFallback = showParam.replace(/-/g, ' ');
                     
-                    let { data: fallbackAct } = await supabaseClient.from('acts').select('*').ilike('name', nameFallback).single();
-                    if (fallbackAct) {
-                        item = fallbackAct;
+                    let { data: actsByName } = await supabaseClient.from('acts').select('*').ilike('name', nameFallback);
+                    if (actsByName && actsByName.length > 0) {
+                        item = actsByName[0];
                         source = 'app';
                     } else {
-                        let { data: fallbackChar } = await supabaseClient.from('pld_characters').select('*').ilike('name', nameFallback).single();
-                        if (fallbackChar) {
-                            item = fallbackChar;
+                        let { data: charsByName } = await supabaseClient.from('pld_characters').select('*').ilike('name', nameFallback);
+                        if (charsByName && charsByName.length > 0) {
+                            item = charsByName[0];
                             source = 'old-web';
                         } else {
                             console.error('Show not found with slug or name:', showParam);
@@ -441,28 +453,47 @@
             }
             
             // Build editable gallery array safely
-            let rawWebGallery = item.web_gallery;
-            if (!rawWebGallery || (Array.isArray(rawWebGallery) && rawWebGallery.length === 0)) {
-                rawWebGallery = [];
+            let rawWebGallery = [];
+            
+            // Try to get web_gallery
+            let webGal = item.web_gallery;
+            if (typeof webGal === 'string' && webGal.trim()) {
+                try { webGal = JSON.parse(webGal); } catch(e) { webGal = null; }
+            }
+            
+            if (Array.isArray(webGal) && webGal.length > 0) {
+                rawWebGallery = webGal;
+            } else {
+                // Fallback to legacy fields
                 if (source === 'app') {
                     const ph = Array.isArray(item.photos_url) ? item.photos_url : [];
-                    const vi = Array.isArray(item.video_gallery) ? item.video_gallery : [];
+                    let vi = Array.isArray(item.video_gallery) ? item.video_gallery : [];
+                    
+                    // Handle case where video_gallery might be a string
+                    if (!Array.isArray(vi) && typeof item.video_gallery === 'string' && item.video_gallery.trim()) {
+                        try { vi = JSON.parse(item.video_gallery); } catch(e) { vi = []; }
+                    }
+                    if (!Array.isArray(vi)) vi = [];
+
                     if (item.video_url) vi.push(item.video_url);
+                    
                     ph.forEach(p => { if (p) rawWebGallery.push({url: p, type: 'image'}); });
                     vi.forEach(v => {
                         let vUrl = typeof v === 'string' ? v : (v && v.url ? v.url : null);
                         if (vUrl) rawWebGallery.push({url: vUrl, type: 'video'});
                     });
                 } else {
-                    const og = Array.isArray(item.gallery) ? item.gallery : [];
-                    og.forEach(p => { if (p) rawWebGallery.push({url: p, type: 'image'}); });
+                    let og = item.gallery;
+                    if (typeof og === 'string' && og.trim()) {
+                        try { og = JSON.parse(og); } catch(e) { og = null; }
+                    }
+                    if (Array.isArray(og)) {
+                        og.forEach(p => { if (p) rawWebGallery.push({url: p, type: 'image'}); });
+                    }
                 }
-            } else if (typeof rawWebGallery === 'string') {
-                try { rawWebGallery = JSON.parse(rawWebGallery); } catch(e) { rawWebGallery = []; }
             }
             
-            if (!Array.isArray(rawWebGallery)) rawWebGallery = [];
-            editableGallery = [...rawWebGallery];
+            editableGallery = Array.isArray(rawWebGallery) ? [...rawWebGallery] : [];
             pendingCoverImage = item.web_cover_image || item.image_url || item.image || '';
 
             // Fill Hero
@@ -556,7 +587,8 @@
         // Check for old youtube videos
         let fallbackVideos = [];
         if (source === 'app') {
-            fallbackVideos = [currentItem.video_url, ...(currentItem.video_gallery || [])];
+            const vGal = Array.isArray(currentItem.video_gallery) ? currentItem.video_gallery : [];
+            fallbackVideos = [currentItem.video_url, ...vGal];
         } else {
             fallbackVideos = [currentItem.video_url];
         }
@@ -617,39 +649,40 @@
     
     function renderCategoryChips(active, editMode) {
         const wrap = document.getElementById('show-categories-wrap');
+        if (!wrap) return;
         wrap.innerHTML = '';
+        
+        const activeArray = Array.isArray(active) ? active : [];
+
         if (editMode) {
-            ALL_CATEGORIES.forEach(cat => {
-                const isActive = active.some(a => String(a).toLowerCase() === cat.toLowerCase());
+            (ALL_CATEGORIES || []).forEach(cat => {
+                const isActive = activeArray.some(a => String(a).toLowerCase() === cat.toLowerCase());
                 const chip = document.createElement('button');
                 chip.type = 'button';
                 chip.textContent = cat;
                 chip.className = `px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border transition-all duration-200 ${isActive ? 'bg-primary text-black border-primary shadow-lg shadow-primary/20' : 'bg-white/5 text-white/50 border-white/15 hover:border-primary/50 hover:text-white'}`;
                 chip.onclick = () => {
                     if (isActive) {
-                        // Remove case-insensitively
-                        currentItem._activeCats = currentItem._activeCats.filter(c => c.toLowerCase() !== cat.toLowerCase());
+                        currentItem._activeCats = activeArray.filter(c => c.toLowerCase() !== cat.toLowerCase());
                     } else {
-                        // Add
-                        currentItem._activeCats = [...(currentItem._activeCats || []), cat];
+                        currentItem._activeCats = [...activeArray, cat];
                     }
                     renderCategoryChips(currentItem._activeCats, true);
                 };
                 wrap.appendChild(chip);
             });
-            // Add label
             const lbl = document.createElement('p');
             lbl.className = 'w-full text-[10px] text-white/30 uppercase tracking-widest font-headline mt-2';
             lbl.textContent = 'Selecciona una o varias categorías';
             wrap.insertBefore(lbl, wrap.firstChild);
         } else {
-            active.forEach(cat => {
+            activeArray.forEach(cat => {
                 const chip = document.createElement('span');
-                chip.textContent = cat.toUpperCase();
+                chip.textContent = String(cat).toUpperCase();
                 chip.className = 'inline-block px-4 py-1 bg-primary/20 text-primary font-bold tracking-widest uppercase text-xs rounded-full';
                 wrap.appendChild(chip);
             });
-            if (active.length === 0) {
+            if (activeArray.length === 0) {
                 const chip = document.createElement('span');
                 chip.textContent = 'PERFORMANCE';
                 chip.className = 'inline-block px-4 py-1 bg-primary/20 text-primary font-bold tracking-widest uppercase text-xs rounded-full';

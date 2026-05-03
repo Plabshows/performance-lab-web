@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8"/>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#131313">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Experiences – Immersive Event Design | Performance Lab</title>
 <meta name="description" content="From superyacht shows to corporate galas and Ibiza villa parties — Performance Lab crafts luxury event experiences that captivate. Tell us your vision.">
@@ -647,7 +649,11 @@ const THEMES=[
   {name:'Futuristic',tag:'The future of entertainment is here.',desc:'LED robotics, holographic visuals and performers that look like they arrived from 2075.',cats:['Led','Specialty Acts','Magic'],fb:'/images/theme_futuristic.jpg'},
   {name:'Forbidden Playground',tag:'Edgy, daring and immersive.',desc:'Dark glamour, underground aesthetics and artists who push every boundary.',cats:['Drag','Fire','Fire & Flow','Specialty Acts'],fb:'/images/theme_forbidden.jpg'},
 ];
+</script>
 
+<!-- Supabase JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 (async function initThemes(){
   const SB_URL='https://nwxepstpedmxslbznejv.supabase.co';
   const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM';
@@ -661,14 +667,28 @@ const THEMES=[
     function ingest(items,ck,ik){
       (items||[]).forEach(item=>{
         let cats=[];
-        if(Array.isArray(item.categories))cats=item.categories;
-        else if(typeof item.categories==='string'&&item.categories){try{cats=JSON.parse(item.categories);}catch{cats=[item.categories];}}
-        if(item.category)cats=[...new Set([...cats,item.category])];
+        if(Array.isArray(item.categories)) cats = item.categories;
+        else if(typeof item.categories==='string'&&item.categories){
+          try{cats=JSON.parse(item.categories);}catch{cats=[item.categories];}
+        }
+        if(!Array.isArray(cats)) cats = item.categories ? [item.categories] : [];
+        if(item.category) cats = [...new Set([...cats,item.category])];
+        
         const cover=item[ck]||item[ik]||'';
         let gal=item.web_gallery||[];
-        if(typeof gal==='string'){try{gal=JSON.parse(gal);}catch{gal=[];}}
+        if(typeof gal==='string'){
+          try{gal=JSON.parse(gal);}catch{gal=[];}
+        }
+        if(!Array.isArray(gal)) gal = [];
+        
         const imgs=[cover,...gal.map(g=>typeof g==='string'?g:(g&&g.url))].filter(u=>u&&typeof u==='string'&&!u.match(/\.(mp4|webm|mov|avi)/i)&&!u.includes('youtube'));
-        cats.forEach(c=>{const k=String(c).trim();if(!catImgs[k])catImgs[k]=[];imgs.forEach(i=>catImgs[k].push(i));});
+        cats.forEach(c=>{
+          const k=String(c).trim();
+          if(k) {
+            if(!catImgs[k])catImgs[k]=[];
+            imgs.forEach(i=>catImgs[k].push(i));
+          }
+        });
       });
     }
     ingest(acts,'web_cover_image','image_url');
@@ -912,26 +932,26 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeThemeModal();})
       <h2 id="cta-title" class="font-headline text-5xl font-bold text-white mb-8">LET'S CREATE <br/><span class="text-primary" style="color:#4cd7f7;">MAGIC.</span></h2>
       
       <!-- Contact Form -->
-      <form id="booking-form" class="glass-card p-8 rounded-xl max-w-xl space-y-6 mb-12" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(10px);">
+      <form id="booking-form" class="bg-white p-8 rounded-xl max-w-xl space-y-6 mb-12 shadow-2xl">
         <input type="hidden" name="_subject" value="New Event Brief — Performance Lab (Experiences)">
-        <h3 class="font-headline font-bold text-white text-2xl mb-4">Event Brief</h3>
+        <h3 class="font-headline font-bold text-black text-2xl mb-4">Event Brief</h3>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="space-y-1">
-            <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Full Name</label>
-            <input name="name" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white placeholder:text-gray-500" placeholder="Enter your name" type="text" required/>
+            <label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Full Name</label>
+            <input name="name" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" placeholder="Enter your name" type="text" required/>
           </div>
           <div class="space-y-1">
-            <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Email Address</label>
-            <input name="email" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white placeholder:text-gray-500" placeholder="name@email.com" type="email" required/>
+            <label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Email Address</label>
+            <input name="email" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" placeholder="name@email.com" type="email" required/>
           </div>
           <div class="space-y-1">
-            <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Date</label>
-            <input name="event_date" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white [color-scheme:light] outline-none" type="date" required/>
+            <label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Event Date</label>
+            <input name="event_date" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black [color-scheme:light] bg-white border border-gray-200 focus:border-primary outline-none" type="date" required/>
           </div>
           <div class="space-y-1">
-            <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Type</label>
-            <select name="event_type" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-white/10 focus:border-[#4cd7f7] outline-none" required>
+            <label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Event Type</label>
+            <select name="event_type" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 focus:border-primary outline-none" required>
                 <option value="" disabled selected>Select event type</option>
                 <option value="Wedding" class="bg-white text-black">Wedding</option>
                 <option value="Corporate" class="bg-white text-black">Corporate</option>

@@ -3,8 +3,10 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#131313">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>The Elements – Our Roster | Performance Lab</title>
 <meta name="description" content="Explore our curated roster of elite Ibiza performers — circus acts, live bands, immersive characters, fire shows & more. Available for events worldwide. Explore the roster.">
@@ -178,6 +180,7 @@
     </div>
 </section>
 </main>
+
 <!-- Footer -->
 <footer class="bg-[#0e0e0e] w-full py-16 px-8 border-t border-white/10 overflow-hidden">
 <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-16">
@@ -185,43 +188,43 @@
 <div class="text-xl font-bold text-white mb-4 font-headline uppercase tracking-tighter">PERFORMANCE LAB</div>
 <h2 class="font-headline text-5xl font-bold text-white mb-8">LET'S CREATE <br/><span class="kinetic-italic text-primary">MAGIC.</span></h2>
 <!-- Contact Form -->
-<form id="booking-form" class="glass-card p-8 rounded-xl max-w-xl space-y-6 mb-12">
-<input type="hidden" name="_subject" value="New Event Brief — Performance Lab (The Elements Page)">
-<h3 class="font-headline font-bold text-white text-2xl mb-4">Event Brief</h3>
+<form id="booking-form" class="bg-white p-8 rounded-xl max-w-xl space-y-6 mb-12 shadow-2xl">
+<input type="hidden" name="_subject" value="New Event Brief — Performance Lab (The Elements)">
+<h3 class="font-headline font-bold text-black text-2xl mb-4">Event Brief</h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Full Name</label>
-<input name="name" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="Enter your name" type="text" required/>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Full Name</label>
+<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" name="name" placeholder="Enter your name" type="text" required/>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Email Address</label>
-<input name="email" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="name@email.com" type="email" required/>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Email Address</label>
+<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" name="email" placeholder="name@email.com" type="email" required/>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Date</label>
-<input name="event_date" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white [color-scheme:dark]" type="date" required/>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Event Date</label>
+<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 [color-scheme:light] focus:border-primary outline-none" name="event_date" type="date" required/>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Type</label>
-<select name="event_type" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-primary focus:bg-white/10 outline-none" required>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Event Type</label>
+<select name="event_type" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 focus:border-primary outline-none" required>
     <option value="" disabled selected>Select event type</option>
-    <option value="Wedding" class="bg-[#1b1b1b]">Wedding</option>
-    <option value="Corporate" class="bg-[#1b1b1b]">Corporate</option>
-    <option value="Club / Nightlife" class="bg-[#1b1b1b]">Club / Nightlife</option>
-    <option value="Private Celebration" class="bg-[#1b1b1b]">Private Celebration</option>
-    <option value="Other" class="bg-[#1b1b1b]">Other</option>
+    <option value="wedding" class="bg-white text-black">Wedding</option>
+    <option value="corporate" class="bg-white text-black">Corporate</option>
+    <option value="club" class="bg-white text-black">Club / Nightlife</option>
+    <option value="private" class="bg-white text-black">Private Celebration</option>
+    <option value="other" class="bg-white text-black">Other</option>
 </select>
 </div>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Approximate Budget (€)</label>
-<input name="budget" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="e.g. 5000" type="number" min="0"/>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">Approximate Budget (€)</label>
+<input class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" name="budget" placeholder="e.g. 5000" type="number" min="0"/>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">What are you looking for?</label>
-<textarea name="message" class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-white" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
+<label class="text-[10px] uppercase tracking-widest text-black/60 font-headline font-bold">What are you looking for?</label>
+<textarea class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-black bg-white border border-gray-200 placeholder:text-gray-400 focus:border-primary outline-none" name="message" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
 </div>
-<button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all">SEND EVENT BRIEF</button>
+<button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline font-bold uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-primary/20">SEND EVENT BRIEF</button>
 </form>
 <div class="flex flex-wrap gap-4">
 <button class="bg-white/5 border border-white/10 text-white px-8 py-3 rounded-lg font-headline font-bold uppercase text-xs tracking-widest hover:bg-white/10 transition-all">CONTACT THE LAB</button>
@@ -275,120 +278,140 @@ function closeMobileMenu() {
 
 if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 </script>
-<script src="categories.js"></script>
+    <script src="categories.js"></script>
 <script>
-    const supabaseUrl = 'https://nwxepstpedmxslbznejv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM';
-    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-
+    let supabaseClient = null;
     let allElements = [];
     const searchInput = document.getElementById('artist-search');
     const categoryFiltersContainer = document.getElementById('category-filters');
-    
-    // Dynamically render category buttons
-    if (window.PL_CATEGORIES) {
-        window.PL_CATEGORIES.forEach(cat => {
-            const btn = document.createElement('button');
-            btn.className = 'filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border border-white/10 text-white/70 hover:border-white/30 transition-all hover:bg-white/5';
-            btn.setAttribute('data-category', cat); // Case-sensitive exact string
-            btn.textContent = cat;
-            categoryFiltersContainer.appendChild(btn);
-        });
+
+    function initSupabase() {
+        if (window.supabase && !supabaseClient) {
+            const supabaseUrl = 'https://nwxepstpedmxslbznejv.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53eGVwc3RwZWRteHNsYnpuZWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDQ4NTQsImV4cCI6MjA4Njk4MDg1NH0.l4zN1IAwDXsMbkRW3qzN0fc-jB69KPbKV8rQpn13reM';
+            supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+            return true;
+        }
+        return !!supabaseClient;
     }
     
-    let filterBtns = document.querySelectorAll('.filter-btn');
+    // Dynamically render category buttons
+    function initCategoryFilters() {
+        if (window.PL_CATEGORIES && categoryFiltersContainer) {
+            categoryFiltersContainer.innerHTML = '<button class="filter-btn active px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border border-primary text-primary bg-primary/10 transition-all hover:bg-primary/20" data-category="all">All</button>';
+            window.PL_CATEGORIES.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border border-white/10 text-white/70 hover:border-white/30 transition-all hover:bg-white/5';
+                btn.setAttribute('data-category', cat);
+                btn.textContent = cat;
+                categoryFiltersContainer.appendChild(btn);
+            });
+            setupFilterListeners();
+        }
+    }
+    
+    function setupFilterListeners() {
+        let filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'border-primary', 'text-primary', 'bg-primary/10');
+                    b.classList.add('border-white/10', 'text-white/70');
+                });
+                const t = e.currentTarget;
+                t.classList.remove('border-white/10', 'text-white/70');
+                t.classList.add('active', 'border-primary', 'text-primary', 'bg-primary/10');
+                filterElements();
+            });
+        });
+    }
 
     async function loadElements() {
         const grid = document.getElementById('artists-grid');
+        if (!grid) return;
+        
+        console.log('[PL] loadElements started');
+        if (!initSupabase()) {
+            console.error('[PL] Supabase not initialized');
+            grid.innerHTML = '<div class="col-span-full py-12 text-center text-white/50 font-body">Database library not loaded. Please check your connection.</div>';
+            return;
+        }
+
         grid.innerHTML = '<div id="loading-spinner" class="col-span-full text-center py-12 text-white/50"><span class="material-symbols-outlined animate-spin text-4xl text-primary block mx-auto w-fit">progress_activity</span><p class="mt-4 font-headline uppercase tracking-widest text-xs">Loading Elements...</p></div>';
 
         try {
-            // Run both fetches in parallel — each failure is handled independently
+            console.log('[PL] Fetching from Supabase...');
             const [actsResult, charsResult] = await Promise.all([
                 supabaseClient.from('acts').select('*').eq('is_web_public', true),
                 supabaseClient.from('pld_characters').select('*').eq('is_web_public', true)
             ]);
 
-            if (actsResult.error) console.warn('[PL] Acts fetch error:', actsResult.error.message);
-            if (charsResult.error) console.warn('[PL] Characters fetch error:', charsResult.error.message);
+            if (actsResult.error) console.error('[PL] Error fetching acts:', actsResult.error);
+            if (charsResult.error) console.error('[PL] Error fetching characters:', charsResult.error);
 
             const acts = actsResult.data || [];
             const chars = charsResult.data || [];
+            console.log(`[PL] Data received: ${acts.length} acts, ${chars.length} characters`);
 
-            const mappedActs = (acts || []).map(act => {
-                let backupImage = act.image_url;
-                if (act.web_gallery && act.web_gallery.length > 0) {
-                   backupImage = typeof act.web_gallery[0] === 'string' ? act.web_gallery[0] : act.web_gallery[0].url;
+            const parseGallery = (data) => {
+                if (Array.isArray(data)) return data;
+                if (typeof data === 'string' && data.trim() !== '') {
+                    try { return JSON.parse(data); } catch(e) { return []; }
                 }
-                let parsedCats = [];
-                if (Array.isArray(act.categories)) {
-                    parsedCats = act.categories;
-                } else if (typeof act.categories === 'string' && act.categories.trim() !== '') {
+                return [];
+            };
+
+            const parseCategories = (cat, cats) => {
+                let parsed = [];
+                if (Array.isArray(cats)) parsed = cats;
+                else if (typeof cats === 'string' && cats.trim() !== '') {
                     try {
-                        parsedCats = JSON.parse(act.categories);
-                        if (!Array.isArray(parsedCats)) parsedCats = [act.categories];
+                        parsed = JSON.parse(cats);
+                        if (!Array.isArray(parsed)) parsed = [cats];
                     } catch(e) {
-                        parsedCats = act.categories.split(',').map(s => s.trim());
+                        parsed = cats.split(',').map(s => s.trim());
                     }
                 }
+                const combined = [cat, ...parsed].filter(Boolean).map(c => String(c).trim());
+                return [...new Set(combined)];
+            };
+
+            const mappedActs = acts.map(act => {
+                const gallery = parseGallery(act.web_gallery || act.photos_url);
+                let backupImage = act.image_url;
+                if (gallery.length > 0) {
+                    backupImage = typeof gallery[0] === 'string' ? gallery[0] : (gallery[0].url || gallery[0].src);
+                }
                 
-                // Collect all categories: legacy `category` field + new `categories` array from Edit Mode
-                const rawCats = [
-                    act.category,
-                    ...parsedCats
-                ].filter(Boolean).map(c => String(c).trim());
+                const actName = act.web_custom_title || act.name || 'Unnamed Act';
+                const finalSlug = act.slug || actName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                 
-                const actName = act.web_custom_title || act.name || '';
-                const generatedSlug = actName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                let finalSlug = act.slug;
-                if (!finalSlug || finalSlug === 'null') finalSlug = generatedSlug;
-                
-                if (!act.slug || act.slug === 'null') console.warn('[PL] Act missing slug in DB (using fallback):', actName);
                 return {
                     id: act.id,
                     slug: finalSlug,
                     name: actName,
-                    categories: [...new Set(rawCats)],
+                    categories: parseCategories(act.category, act.categories),
                     image: act.web_cover_image || backupImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800',
                     description: act.web_description || act.description || '',
                     source: 'app'
                 };
             });
 
-            const mappedChars = (chars || []).map(char => {
+            const mappedChars = chars.map(char => {
+                const gallery = parseGallery(char.web_gallery);
                 let backupImage = char.image;
-                if (char.web_gallery && char.web_gallery.length > 0) {
-                   backupImage = typeof char.web_gallery[0] === 'string' ? char.web_gallery[0] : char.web_gallery[0].url;
+                if (gallery.length > 0) {
+                    backupImage = typeof gallery[0] === 'string' ? gallery[0] : (gallery[0].url || gallery[0].src);
                 }
-                let parsedCats = [];
-                if (Array.isArray(char.categories)) {
-                    parsedCats = char.categories;
-                } else if (typeof char.categories === 'string' && char.categories.trim() !== '') {
-                    try {
-                        parsedCats = JSON.parse(char.categories);
-                        if (!Array.isArray(parsedCats)) parsedCats = [char.categories];
-                    } catch(e) {
-                        parsedCats = char.categories.split(',').map(s => s.trim());
-                    }
-                }
-                
-                // Collect all categories: legacy `category` field + new `categories` array from Edit Mode
-                const rawCats = [
-                    char.category,
-                    ...parsedCats
-                ].filter(Boolean).map(c => String(c).trim());
 
-                const charName = char.web_custom_title || char.name || '';
-                const generatedSlug = charName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                let finalSlug = char.slug;
-                if (!finalSlug || finalSlug === 'null') finalSlug = generatedSlug;
+                const charName = char.web_custom_title || char.name || 'Unnamed Character';
+                const finalSlug = char.slug || charName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
-                if (!char.slug || char.slug === 'null') console.warn('[PL] Character missing slug in DB (using fallback):', charName);
                 return {
                     id: char.id,
                     slug: finalSlug,
                     name: charName,
-                    categories: [...new Set(rawCats)],
+                    categories: parseCategories(char.category, char.categories),
                     image: char.web_cover_image || backupImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800',
                     description: char.web_description || char.description || '',
                     source: 'old-web'
@@ -396,19 +419,18 @@ if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
             });
 
             allElements = [...mappedActs, ...mappedChars].filter(el => el.name);
-            
-            // Shuffle
             allElements.sort(() => Math.random() - 0.5);
-            
+            console.log(`[PL] Final elements count: ${allElements.length}`);
             renderGrid(allElements);
         } catch (error) {
             console.error('[PL] Fatal error loading elements:', error);
-            document.getElementById('artists-grid').innerHTML = '<div class="col-span-full py-12 text-center font-body"><p class="text-white/50 mb-4">Could not load artists. Please try again.</p><button onclick="loadElements()" class="text-primary border border-primary/30 px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-primary/10 transition-all">Retry</button></div>';
+            if (grid) grid.innerHTML = '<div class="col-span-full py-12 text-center font-body"><p class="text-white/50 mb-4">An error occurred while loading. Please check the console or try again.</p><button onclick="loadElements()" class="text-primary border border-primary/30 px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-primary/10 transition-all">Retry</button></div>';
         }
     }
 
     function renderGrid(elements) {
         const grid = document.getElementById('artists-grid');
+        if (!grid) return;
         grid.innerHTML = '';
         if (elements.length === 0) {
             grid.innerHTML = '<div class="col-span-full py-12 text-center text-white/50 font-body">No elements found matching your criteria.</div>';
@@ -418,7 +440,6 @@ if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
         elements.forEach(el => {
             const card = document.createElement('div');
             card.className = 'glass-card group rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(255,177,193,0.15)] flex flex-col';
-            
             const mainCat = el.categories && el.categories.length > 0 && el.categories[0] !== '' ? el.categories[0] : 'PERFORMANCE';
             
             card.innerHTML = `
@@ -439,22 +460,15 @@ if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
     }
 
     function filterElements() {
-        const query = searchInput.value.toLowerCase();
+        const query = searchInput ? searchInput.value.toLowerCase() : '';
         const activeBtn = document.querySelector('.filter-btn.active');
         const activeCat = activeBtn ? activeBtn.getAttribute('data-category') : 'all';
 
         const filtered = allElements.filter(el => {
-            // Text search: name, description, and categories
-            const searchable = [
-                el.name,
-                el.description,
-                ...el.categories
-            ].join(' ').toLowerCase();
+            const searchable = [el.name, el.description, ...el.categories].join(' ').toLowerCase();
             const matchesQuery = !query || searchable.includes(query);
-
             let matchesCat = true;
             if (activeCat !== 'all') {
-                // Strict exact case match
                 matchesCat = el.categories.some(cat => cat === activeCat);
             }
             return matchesQuery && matchesCat;
@@ -465,95 +479,9 @@ if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
     if (searchInput) searchInput.addEventListener('input', filterElements);
 
-    if (filterBtns) {
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                filterBtns.forEach(b => {
-                    b.classList.remove('active', 'border-primary', 'text-primary', 'bg-primary/10');
-                    b.classList.add('border-white/10', 'text-white/70');
-                });
-                const t = e.currentTarget;
-                t.classList.remove('border-white/10', 'text-white/70');
-                t.classList.add('active', 'border-primary', 'text-primary', 'bg-primary/10');
-                
-                filterElements();
-            });
-        });
-    }
-
-</section>
-
-<!-- Footer -->
-<footer class="bg-[#0e0e0e] w-full py-16 px-8 border-t border-white/10 overflow-hidden">
-<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-16">
-<div class="flex-1 w-full">
-<div class="text-xl font-bold text-white mb-4 font-headline uppercase tracking-tighter">PERFORMANCE LAB</div>
-<h2 class="font-headline text-5xl font-bold text-white mb-8">LET'S CREATE <br/><span class="kinetic-italic text-primary">MAGIC.</span></h2>
-<!-- Contact Form -->
-<form id="booking-form" class="glass-card p-8 rounded-xl max-w-xl space-y-6 mb-12">
-<input type="hidden" name="_subject" value="New Event Brief — Performance Lab (The Elements)">
-<h3 class="font-headline font-bold text-white text-2xl mb-4">Event Brief</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Full Name</label>
-<input name="name" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white placeholder:text-gray-500" placeholder="Enter your name" type="text" required/>
-</div>
-<div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Email Address</label>
-<input name="email" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white placeholder:text-gray-500" placeholder="name@email.com" type="email" required/>
-</div>
-<div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Date</label>
-<input name="event_date" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black [color-scheme:light] bg-white" type="date" required/>
-</div>
-<div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Type</label>
-<select name="event_type" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white border border-white/10 focus:border-primary focus:bg-white outline-none" required>
-    <option value="" disabled selected>Select event type</option>
-    <option value="Wedding" class="bg-white text-black">Wedding</option>
-    <option value="Corporate" class="bg-white text-black">Corporate</option>
-    <option value="Club / Nightlife" class="bg-white text-black">Club / Nightlife</option>
-    <option value="Private Celebration" class="bg-white text-black">Private Celebration</option>
-    <option value="Other" class="bg-white text-black">Other</option>
-</select>
-</div>
-</div>
-<div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Approximate Budget (€)</label>
-<input name="budget" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-black bg-white placeholder:text-gray-500" placeholder="e.g. 5000" type="number" min="0"/>
-</div>
-<div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">What are you looking for?</label>
-<textarea name="message" class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-black bg-white placeholder:text-gray-500" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
-</div>
-<button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all">SEND EVENT BRIEF</button>
-</form>
-<div class="flex flex-wrap gap-4">
-<button class="bg-white/5 border border-white/10 text-white px-8 py-3 rounded-lg font-headline font-bold uppercase text-xs tracking-widest hover:bg-white/10 transition-all">CONTACT THE LAB</button>
-<a href="https://wa.me/34630787144" target="_blank" class="border border-white/20 text-white px-8 py-3 rounded-lg font-headline font-bold uppercase text-xs tracking-widest hover:border-primary transition-all inline-block text-center">WHATSAPP HUB</a>
-</div>
-</div>
-<div class="flex-1 flex flex-col md:items-end justify-between self-stretch">
-<div class="grid grid-cols-2 gap-x-16 gap-y-4 mb-12">
-<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://www.instagram.com/performancelabshows" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
-<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://wa.me/34630787144" target="_blank" rel="noopener noreferrer">WHATSAPP</a>
-<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="https://www.linkedin.com/company/performance-lab-ibiza" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
-<a class="font-['Inter'] text-xs uppercase tracking-widest text-white/50 hover:text-[#4cd7f7] transition-all" href="#booking-form">CONTACT</a>
-</div>
-<div class="font-['Inter'] text-xs uppercase tracking-widest text-white/30">
-                    © 2026 PERFORMANCE LAB. ALL RIGHTS RESERVED.
-                </div>
-</div>
-</div>
-</footer>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Wait for Supabase CDN to be ready
-        if (typeof window.supabase === 'undefined') {
-            document.getElementById('artists-grid').innerHTML = '<div class="col-span-full py-12 text-center text-white/50 font-body">Could not connect to database. Please refresh the page.</div>';
-            return;
-        }
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        initCategoryFilters();
         loadElements();
     });
 </script>
