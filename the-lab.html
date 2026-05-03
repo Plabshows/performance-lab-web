@@ -18,6 +18,9 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- GSAP Core & ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -185,6 +188,7 @@
 <p class="font-headline text-3xl md:text-4xl font-bold text-white leading-tight mb-8">
     Born in Ibiza. <span class="kinetic-italic text-secondary">Trusted worldwide.</span>
 </p>
+
 <div class="space-y-6 text-on-surface/80 text-lg leading-relaxed font-body">
     <p>
         Performance Lab is an Ibiza-based creative entertainment agency with over 20 years of experience in nightlife and events.
@@ -193,12 +197,23 @@
         We curate and produce performers, visual shows and immersive experiences for weddings, private events, brands, hotels and large-scale productions around the world.
     </p>
     <p class="text-white font-bold">
-        We don’t just book acts — we design experiences that people remember.
+        We don't just book acts - we design experiences that people remember.
     </p>
 </div>
 </div>
 </div>
 </section>
+
+<!-- Native Video GSAP Parallax Full-Width Section -->
+<section class="relative h-[60vh] md:h-[80vh] w-full overflow-hidden border-y border-white/10">
+    <video 
+        id="lab-parallax-video"
+        src="images/newnew.mp4" 
+        class="absolute top-0 left-0 w-full h-full object-cover transform scale-125 origin-center"
+        autoplay="autoplay" loop="loop" muted="muted" playsinline>
+    </video>
+</section>
+
 <!-- The Lab in Action (Dynamic carousel from Supabase) -->
 <section class="py-24 px-8 bg-background">
 <div class="max-w-7xl mx-auto">
@@ -225,19 +240,22 @@
     try {
         // Fetch both tables in parallel
         const [{ data: acts }, { data: chars }] = await Promise.all([
-            sb.from('acts').select('name, web_custom_title, image_url, web_cover_image, web_gallery').eq('is_web_public', true),
-            sb.from('pld_characters').select('name, web_custom_title, image, web_cover_image, web_gallery').eq('is_web_public', true)
+            sb.from('acts').select('*').eq('is_web_public', true),
+            sb.from('pld_characters').select('*').eq('is_web_public', true)
         ]);
 
         // Collect all usable image URLs with their act name
         const entries = [];
 
-        function addImages(items, coverKey, imgKey) {
+        function addImages(items, coverKey, imgKey, src) {
             (items || []).forEach(item => {
                 const actName = item.web_custom_title || item.name || '';
                 // Cover image
                 const cover = item[coverKey] || item[imgKey];
-                if (cover && typeof cover === 'string') entries.push({ url: cover, name: actName });
+                const generatedSlug = actName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                let finalSlug = item.slug;
+                if (!finalSlug || finalSlug === 'null') finalSlug = generatedSlug;
+                if (cover && typeof cover === 'string') entries.push({ url: cover, name: actName, slug: finalSlug, id: item.id, source: src });
 
                 // Gallery images (exclude videos)
                 let gallery = item.web_gallery || [];
@@ -245,14 +263,17 @@
                 (Array.isArray(gallery) ? gallery : []).forEach(g => {
                     const u = typeof g === 'string' ? g : (g && g.url);
                     if (u && typeof u === 'string' && !u.match(/\.(mp4|webm|mov|avi)(\?|$)/i) && !u.includes('youtube') && !u.includes('youtu.be')) {
-                        entries.push({ url: u, name: actName });
+                        const generatedSlug = actName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                        let finalSlug = item.slug;
+                        if (!finalSlug || finalSlug === 'null') finalSlug = generatedSlug;
+                        entries.push({ url: u, name: actName, slug: finalSlug, id: item.id, source: src });
                     }
                 });
             });
         }
 
-        addImages(acts,  'web_cover_image', 'image_url');
-        addImages(chars, 'web_cover_image', 'image');
+        addImages(acts,  'web_cover_image', 'image_url', 'app');
+        addImages(chars, 'web_cover_image', 'image', 'old-web');
 
         // Shuffle for variety
         entries.sort(() => Math.random() - 0.5);
@@ -266,9 +287,11 @@
             return;
         }
 
-        slides.forEach(({ url, name }) => {
+        slides.forEach(({ url, name, slug, id, source }) => {
             const div = document.createElement('div');
             div.className = 'snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-[40vw] h-[50vh] md:h-[500px] rounded-2xl overflow-hidden relative group cursor-pointer';
+            const link = `show-details.html?show=${slug}`;
+            div.onclick = () => window.location.href = link;
             div.innerHTML = `
                 <img src="${url}" alt="${name} — Performance Lab" loading="lazy"
                      class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
@@ -291,6 +314,187 @@
     }
 })();
 </script>
+
+<!-- PERFORMANCE LAB — THE ARCHITECTURE OF SPECTACLE (PROCESS) — START -->
+<section class="py-32 bg-[#111111] border-y border-white/5 relative overflow-hidden">
+    <!-- Ambient Background Glows -->
+    <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary/5 blur-[150px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-8 relative z-10 flex flex-col lg:flex-row gap-16 lg:gap-32">
+        
+        <!-- Left: Sticky Header -->
+        <div class="lg:w-1/3 relative">
+            <div class="lg:sticky lg:top-32 scroll-reveal opacity-0">
+                <p class="font-headline text-xs font-bold uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-4">
+                    <span class="w-8 h-px bg-primary/50"></span>
+                    The Blueprint
+                </p>
+                <h2 class="font-headline text-5xl md:text-6xl font-bold text-white uppercase tracking-tighter leading-none mb-8">
+                    How We <br/>Engineer <br/><span class="kinetic-italic text-secondary">Spectacle</span>
+                </h2>
+                <p class="font-body text-lg text-white/60 leading-relaxed">
+                    Five precise phases to transform raw ambition into an unforgettable reality. We do not just perform; we architect moments.
+                </p>
+
+                <!-- Small footer inside sticky -->
+                <div class="mt-12 p-6 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-sm hidden lg:block">
+                    <p class="font-headline text-xs tracking-widest text-white/80 uppercase mb-4">Lead Times</p>
+                    <p class="font-body text-sm text-white/50">
+                        Standard: 2-4 weeks.<br/>
+                        Scale: 6-8 weeks.<br/>
+                        <span class="text-white mt-2 block">72-hour emergency turnarounds available upon review.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Vertical Timeline -->
+        <div class="lg:w-2/3 relative lg:pb-16 mt-8 lg:mt-0">
+            <!-- Continuous glowing line -->
+            <div class="absolute left-[27px] md:left-[39px] top-8 bottom-0 w-px bg-gradient-to-b from-primary/50 via-secondary/20 to-transparent"></div>
+
+            <div class="space-y-24">
+                
+                <!-- Step 01 -->
+                <div class="relative group scroll-reveal opacity-0">
+                    <div class="flex gap-8 md:gap-16">
+                        <!-- Node -->
+                        <div class="relative z-10 shrink-0">
+                            <div class="w-[56px] h-[56px] md:w-[80px] md:h-[80px] rounded-full bg-[#111111] border border-white/20 flex items-center justify-center font-headline text-xl md:text-3xl text-white group-hover:border-primary group-hover:text-primary group-hover:shadow-[0_0_30px_rgba(255,177,193,0.3)] transition-all duration-500">
+                                01
+                            </div>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="pt-2 md:pt-4">
+                            <h3 class="font-headline text-3xl md:text-4xl font-bold text-white tracking-tight uppercase mb-4 group-hover:text-primary transition-colors duration-500">The Discovery</h3>
+                            <p class="font-body text-white/70 text-lg leading-relaxed mb-6">
+                                We do not just take orders; we listen for the pulse of your brand. You share your venue, audience, and wildest ambitions. Within 48 hours, the laboratory is activated.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">Vision Alignment</span>
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">Venue Feasibility</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 02 -->
+                <div class="relative group scroll-reveal opacity-0">
+                    <div class="flex gap-8 md:gap-16">
+                        <div class="relative z-10 shrink-0">
+                            <div class="w-[56px] h-[56px] md:w-[80px] md:h-[80px] rounded-full bg-[#111111] border border-white/20 flex items-center justify-center font-headline text-xl md:text-3xl text-white group-hover:border-secondary group-hover:text-secondary group-hover:shadow-[0_0_30px_rgba(76,215,247,0.3)] transition-all duration-500">
+                                02
+                            </div>
+                        </div>
+                        <div class="pt-2 md:pt-4">
+                            <h3 class="font-headline text-3xl md:text-4xl font-bold text-white tracking-tight uppercase mb-4 group-hover:text-secondary transition-colors duration-500">The Architecture</h3>
+                            <p class="font-body text-white/70 text-lg leading-relaxed mb-6">
+                                Our creative directors draft the narrative. We curate the talent, design the arcs, and build a bespoke mood board that translates raw ideas into a cinematic structure.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">Talent Curation</span>
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">Narrative Arc</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 03 -->
+                <div class="relative group scroll-reveal opacity-0">
+                    <div class="flex gap-8 md:gap-16">
+                        <div class="relative z-10 shrink-0">
+                            <div class="w-[56px] h-[56px] md:w-[80px] md:h-[80px] rounded-full bg-[#111111] border border-white/20 flex items-center justify-center font-headline text-xl md:text-3xl text-white group-hover:border-primary group-hover:text-primary group-hover:shadow-[0_0_30px_rgba(255,177,193,0.3)] transition-all duration-500">
+                                03
+                            </div>
+                        </div>
+                        <div class="pt-2 md:pt-4">
+                            <h3 class="font-headline text-3xl md:text-4xl font-bold text-white tracking-tight uppercase mb-4 group-hover:text-primary transition-colors duration-500">The Build</h3>
+                            <p class="font-body text-white/70 text-lg leading-relaxed mb-6">
+                                The laboratory goes to work. Custom wardrobing, technical rigging, intense rehearsals, and precise venue synchronization. Every variable is calculated; every cue is perfected.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">Costume Design</span>
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">Rehearsals & Rigging</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 04 -->
+                <div class="relative group scroll-reveal opacity-0">
+                    <div class="flex gap-8 md:gap-16">
+                        <div class="relative z-10 shrink-0">
+                            <div class="w-[56px] h-[56px] md:w-[80px] md:h-[80px] rounded-full bg-[#111111] border border-white/20 flex items-center justify-center font-headline text-xl md:text-3xl text-white group-hover:border-secondary group-hover:text-secondary group-hover:shadow-[0_0_30px_rgba(76,215,247,0.3)] transition-all duration-500">
+                                04
+                            </div>
+                        </div>
+                        <div class="pt-2 md:pt-4">
+                            <h3 class="font-headline text-3xl md:text-4xl font-bold text-white tracking-tight uppercase mb-4 group-hover:text-secondary transition-colors duration-500">The Execution</h3>
+                            <p class="font-body text-white/70 text-lg leading-relaxed mb-6">
+                                The curtain rises. Our on-site directors take absolute control, managing artists and real-time logistics from setup to the final ovation. You become a guest at your own masterpiece.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">On-Site Direction</span>
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">Real-Time Logistics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 05 -->
+                <div class="relative group scroll-reveal opacity-0">
+                    <div class="flex gap-8 md:gap-16">
+                        <div class="relative z-10 shrink-0">
+                            <div class="w-[56px] h-[56px] md:w-[80px] md:h-[80px] rounded-full bg-[#111111] border border-white/20 flex items-center justify-center font-headline text-xl md:text-3xl text-white group-hover:border-primary group-hover:text-primary group-hover:shadow-[0_0_30px_rgba(255,177,193,0.3)] transition-all duration-500">
+                                05
+                            </div>
+                        </div>
+                        <div class="pt-2 md:pt-4">
+                            <h3 class="font-headline text-3xl md:text-4xl font-bold text-white tracking-tight uppercase mb-4 group-hover:text-primary transition-colors duration-500">The Aftermath</h3>
+                            <p class="font-body text-white/70 text-lg leading-relaxed mb-6">
+                                We dissect the performance, gathering feedback and media documentation. For us, a show is never just a one-off event - it is the foundation of a lasting legacy.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">Debrief</span>
+                                <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full font-headline text-[10px] uppercase tracking-widest text-white/50">Media Handoff</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Footer Note -->
+            <div class="mt-16 p-6 rounded-xl border border-white/10 bg-white/[0.02] block lg:hidden scroll-reveal opacity-0">
+                <p class="font-headline text-xs tracking-widest text-white/80 uppercase mb-4">Lead Times</p>
+                <p class="font-body text-sm text-white/50">
+                    Standard: 2-4 weeks. Scale: 6-8 weeks.<br/>
+                    <span class="text-white mt-2 block">72-hour emergency turnarounds available.</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove('opacity-0');
+                entry.target.classList.add('animate-pulse-slow');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+});
+</script>
+<!-- PERFORMANCE LAB — THE ARCHITECTURE OF SPECTACLE (PROCESS) — END -->
+
 </main>
 <!-- Footer -->
 <footer class="bg-[#0e0e0e] w-full py-16 px-8 border-t border-white/10 overflow-hidden">
@@ -305,15 +509,15 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Full Name</label>
-<input name="name" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="Enter your name" type="text" required/>
+<input name="name" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-primary focus:bg-white/10 outline-none placeholder:text-white/30" placeholder="Enter your name" type="text" required/>
 </div>
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Email Address</label>
-<input name="email" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="name@email.com" type="email" required/>
+<input name="email" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-primary focus:bg-white/10 outline-none placeholder:text-white/30" placeholder="name@email.com" type="email" required/>
 </div>
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Date</label>
-<input name="event_date" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white [color-scheme:dark]" type="date" required/>
+<input name="event_date" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white [color-scheme:dark] bg-white/5 border border-white/10 focus:border-primary focus:bg-white/10 outline-none" type="date" required/>
 </div>
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Event Type</label>
@@ -328,12 +532,12 @@
 </div>
 </div>
 <div class="space-y-1">
-<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Approximate Budget (€)</label>
-<input name="budget" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white" placeholder="e.g. 5000" type="number" min="0"/>
+<label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">Approximate Budget (&euro;)</label>
+<input name="budget" class="w-full px-4 py-3 rounded-lg text-sm transition-all text-white bg-white/5 border border-white/10 focus:border-primary focus:bg-white/10 outline-none placeholder:text-white/30" placeholder="e.g. 5000" type="number" min="0"/>
 </div>
 <div class="space-y-1">
 <label class="text-[10px] uppercase tracking-widest text-white/40 font-headline font-bold">What are you looking for?</label>
-<textarea name="message" class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-white" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
+<textarea name="message" class="w-full px-4 py-3 rounded-lg text-sm h-24 transition-all text-white bg-white/5 border border-white/10 focus:border-primary focus:bg-white/10 outline-none placeholder:text-white/30" placeholder="Tell us about the vibe, the acts you'd like, specific requirements..." required></textarea>
 </div>
 <button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all">SEND EVENT BRIEF</button>
 </form>
@@ -389,6 +593,24 @@ function closeMobileMenu() {
 }
 
 if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+// ── GSAP Parallax Animation ───────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.to("#lab-parallax-video", {
+            yPercent: 15,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#lab-parallax-video",
+                start: "top bottom", 
+                end: "bottom top",
+                scrub: true
+            }
+        });
+    }
+});
 
 // ── Count-up Animation Logic ─────────────────────────
 function initCounters() {

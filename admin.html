@@ -221,10 +221,8 @@
         }
 
         // ─── DATA ─────────────────────────────────────────────
-        function goToEdit(id, source) {
-            const encodedId = encodeURIComponent(id);
-            const encodedSource = encodeURIComponent(source);
-            window.location.href = `show-details?id=${encodedId}&source=${encodedSource}&edit=true`;
+        function goToEdit(id, source, slug) {
+            window.location.href = `/experiences/${encodeURIComponent(slug)}?edit=true`;
         }
 
         async function loadData() {
@@ -233,10 +231,10 @@
                 
                 const { data: acts, error: errorA } = await supabaseClient
                     .from('acts')
-                    .select('id, name, description, image_url, photos_url, video_url, video_gallery, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
+                    .select('id, slug, name, description, image_url, photos_url, video_url, video_gallery, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
                 const { data: chars, error: errorC } = await supabaseClient
                     .from('pld_characters')
-                    .select('id, name, description, long_description, image, gallery, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
+                    .select('id, slug, name, description, long_description, image, gallery, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
 
                 if (errorA || errorC) throw (errorA || errorC);
 
@@ -304,7 +302,7 @@
                     </td>
                     <td class="p-4 md:p-6 text-right">
                         <div class="flex justify-end items-center gap-2">
-                        <button onclick="goToEdit('${show.id}', '${show.source}')" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap flex items-center gap-1.5">
+                        <button onclick="goToEdit('${show.id}', '${show.source}', '${show.slug || show.id}')" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap flex items-center gap-1.5">
                             <span class="material-symbols-outlined text-xs">edit</span> EDITAR
                         </button>
                             <button onclick="confirmDelete('${show.id}', '${show.source}', '${name.replace(/'/g, "\\'")}')" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-red-500 hover:text-red-500 transition-all whitespace-nowrap flex items-center gap-1.5 text-white/30">

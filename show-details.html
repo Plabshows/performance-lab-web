@@ -333,8 +333,8 @@
     const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     const urlParams = new URLSearchParams(window.location.search);
-    const showId = urlParams.get('id')?.trim();
-    const source = urlParams.get('source')?.trim();
+    const showParam = urlParams.get('show')?.trim();
+    let source = ''; // Will be determined by which table it's found in
     const isEditRequested = urlParams.get('edit') === 'true';
 
     // Editing State Vectors
@@ -353,8 +353,8 @@
     }
 
     async function loadShowDetails() {
-        if (!showId || !source) {
-            console.error('Missing showId or source:', { showId, source });
+        if (!showParam) {
+            console.error('Missing show parameter.');
             showError("Missing parameters in URL. Check the debug info below.");
             return;
         }
@@ -367,22 +367,36 @@
             let name = '';
             let category = '';
 
-            const idToUse = isNaN(showId) ? showId : parseInt(showId);
-
-            if (source === 'app') {
-                const { data, error } = await supabaseClient.from('acts').select('*').eq('id', idToUse).single();
-                if (error) {
-                    console.error('Acts fetch error:', error);
-                    throw error;
-                }
+            // First try acts by slug
+            let { data, error } = await supabaseClient.from('acts').select('*').eq('slug', showParam).single();
+            if (data && !error) {
                 item = data;
+                source = 'app';
             } else {
-                const { data, error } = await supabaseClient.from('pld_characters').select('*').eq('id', idToUse).single();
-                if (error) {
-                    console.error('Characters fetch error:', error);
-                    throw error;
+                // Try pld_characters by slug
+                let { data: charData, error: charError } = await supabaseClient.from('pld_characters').select('*').eq('slug', showParam).single();
+                if (charData && !charError) {
+                    item = charData;
+                    source = 'old-web';
+                } else {
+                    // Fallback to searching by name if the database hasn't updated its slug cache yet
+                    let nameFallback = showParam.replace(/-/g, ' ');
+                    
+                    let { data: fallbackAct } = await supabaseClient.from('acts').select('*').ilike('name', nameFallback).single();
+                    if (fallbackAct) {
+                        item = fallbackAct;
+                        source = 'app';
+                    } else {
+                        let { data: fallbackChar } = await supabaseClient.from('pld_characters').select('*').ilike('name', nameFallback).single();
+                        if (fallbackChar) {
+                            item = fallbackChar;
+                            source = 'old-web';
+                        } else {
+                            console.error('Show not found with slug or name:', showParam);
+                            throw new Error('Show not found');
+                        }
+                    }
                 }
-                item = data;
             }
 
             currentItem = item;

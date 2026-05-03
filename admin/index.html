@@ -222,10 +222,8 @@
         }
 
         // ─── DATA ─────────────────────────────────────────────
-        function goToEdit(id, source) {
-            const encodedId = encodeURIComponent(id);
-            const encodedSource = encodeURIComponent(source);
-            window.location.href = `../show-details?id=${encodedId}&source=${encodedSource}&edit=true`;
+        function goToEdit(id, source, slug) {
+            window.location.href = `/experiences/${encodeURIComponent(slug)}?edit=true`;
         }
 
         async function loadData() {
@@ -234,10 +232,10 @@
                 
                 const { data: acts, error: errorA } = await supabaseClient
                     .from('acts')
-                    .select('id, name, image_url, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
+                    .select('id, slug, name, image_url, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
                 const { data: chars, error: errorC } = await supabaseClient
                     .from('pld_characters')
-                    .select('id, name, image, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
+                    .select('id, slug, name, image, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image');
 
                 if (errorA || errorC) throw (errorA || errorC);
 
@@ -304,7 +302,7 @@
                         </label>
                     </td>
                     <td class="p-4 md:p-6 text-right">
-                        <button onclick="goToEdit('${show.id}', '${show.source}')" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap">
+                        <button onclick="goToEdit('${show.id}', '${show.source}', '${show.slug || show.id}')" class="text-[10px] font-black uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg hover:border-[#ffb1c1] hover:text-[#ffb1c1] transition-all whitespace-nowrap">
                             <span class="material-symbols-outlined text-xs align-middle mr-1">edit</span> EDITAR
                         </button>
                     </td>

@@ -299,8 +299,8 @@ if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
         try {
             // Run both fetches in parallel — each failure is handled independently
             const [actsResult, charsResult] = await Promise.all([
-                supabaseClient.from('acts').select('id, name, category, categories, image_url, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image').eq('is_web_public', true),
-                supabaseClient.from('pld_characters').select('id, name, category, image, description, is_web_public, web_custom_title, web_description, web_gallery, web_cover_image').eq('is_web_public', true)
+                supabaseClient.from('acts').select('*').eq('is_web_public', true),
+                supabaseClient.from('pld_characters').select('*').eq('is_web_public', true)
             ]);
 
             if (actsResult.error) console.warn('[PL] Acts fetch error:', actsResult.error.message);
@@ -331,9 +331,17 @@ if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
                     act.category,
                     ...parsedCats
                 ].filter(Boolean).map(c => String(c).trim());
+                
+                const actName = act.web_custom_title || act.name || '';
+                const generatedSlug = actName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                let finalSlug = act.slug;
+                if (!finalSlug || finalSlug === 'null') finalSlug = generatedSlug;
+                
+                if (!act.slug || act.slug === 'null') console.warn('[PL] Act missing slug in DB (using fallback):', actName);
                 return {
                     id: act.id,
-                    name: act.web_custom_title || act.name,
+                    slug: finalSlug,
+                    name: actName,
                     categories: [...new Set(rawCats)],
                     image: act.web_cover_image || backupImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800',
                     description: act.web_description || act.description || '',
@@ -363,9 +371,17 @@ if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
                     char.category,
                     ...parsedCats
                 ].filter(Boolean).map(c => String(c).trim());
+
+                const charName = char.web_custom_title || char.name || '';
+                const generatedSlug = charName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                let finalSlug = char.slug;
+                if (!finalSlug || finalSlug === 'null') finalSlug = generatedSlug;
+
+                if (!char.slug || char.slug === 'null') console.warn('[PL] Character missing slug in DB (using fallback):', charName);
                 return {
                     id: char.id,
-                    name: char.web_custom_title || char.name,
+                    slug: finalSlug,
+                    name: charName,
                     categories: [...new Set(rawCats)],
                     image: char.web_cover_image || backupImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800',
                     description: char.web_description || char.description || '',
@@ -400,7 +416,7 @@ if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
             const mainCat = el.categories && el.categories.length > 0 && el.categories[0] !== '' ? el.categories[0] : 'PERFORMANCE';
             
             card.innerHTML = `
-                <a href="show-details?id=${el.id}&source=${el.source}" class="block h-full flex flex-col">
+                <a href="show-details.html?show=${el.slug}" class="block h-full flex flex-col">
                     <div class="h-64 overflow-hidden relative">
                         <img src="${el.image}" alt="${el.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800'">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#131313] via-transparent to-transparent opacity-90"></div>
