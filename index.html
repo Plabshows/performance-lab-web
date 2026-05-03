@@ -445,7 +445,66 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <!-- Our Origin Story -->
-<section id="origin-story" class="py-24 bg-[#111111] relative overflow-hidden">
+<section id="origin-story" class="py-32 px-8 bg-surface-container-lowest relative overflow-hidden">
+<div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
+<div class="w-full md:w-1/2">
+<img class="rounded-xl w-full aspect-[4/5] object-cover object-top grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl" data-alt="Singer performing at Performance Lab event" src="images/singer.png"/>
+</div>
+<div class="w-full md:w-1/2">
+<h2 class="font-headline text-primary font-bold tracking-widest mb-2 uppercase text-xs">THE ORIGINAL SHOW ARCHITECTS</h2>
+<p class="font-headline text-3xl md:text-4xl font-bold text-white leading-tight mb-8">
+    Born in Ibiza. <span class="kinetic-italic text-secondary">Trusted worldwide.</span>
+</p>
+<div class="space-y-6 text-on-surface/80 text-lg leading-relaxed font-body">
+    <p>
+        Performance Lab is an Ibiza-based creative entertainment agency with over 20 years of experience in nightlife and events.
+    </p>
+    <p>
+        We curate and produce performers, visual shows and immersive experiences for weddings, private events, brands, hotels and large-scale productions around the world.
+    </p>
+    <p class="text-white font-bold">
+        We don’t just book acts — we design experiences that people remember.
+    </p>
+</div>
+</div>
+</div>
+</section>
+::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+<section id="home-elements-section" class="py-24 bg-[#131313] relative overflow-hidden border-t border-white/5">
+    <div class="px-8 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+        <div>
+            <h2 class="font-headline text-4xl font-bold text-white mb-2 uppercase tracking-tighter">MEET THE <br/><span class="kinetic-italic text-secondary">ELEMENTS</span></h2>
+            <p class="text-white/50 font-body text-sm">A curated selection of our world-class talent and characters.</p>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="w-full md:w-80 relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/50">search</span>
+            <input type="text" id="home-artist-search" placeholder="Search elements..." class="w-full pl-12 pr-4 py-3 rounded-xl text-sm transition-all focus:border-[#4cd7f7] focus:ring-1 focus:ring-[#4cd7f7] text-white bg-white/5 border border-white/10 shadow-inner">
+        </div>
+    </div>
+
+    <div id="home-elements-loading" class="text-center py-12 text-white/50">
+        <span class="material-symbols-outlined animate-spin text-4xl text-[#4cd7f7] block mx-auto w-fit">progress_activity</span>
+        <p class="mt-4 font-headline uppercase tracking-widest text-xs">Loading Elements...</p>
+    </div>
+
+    <!-- Horizontal Scroll Container -->
+    <div id="home-artists-scroll" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-12 pt-4 px-8 hide-scrollbar">
+        <!-- Dynamic Cards Here -->
+    </div>
+    
+    <div class="text-center mt-4">
+        <a href="the-elements.html" class="inline-flex items-center gap-2 text-[#4cd7f7] bg-[#4cd7f7]/10 px-8 py-4 rounded-xl font-headline text-xs font-bold uppercase tracking-widest hover:gap-4 hover:bg-[#4cd7f7]/20 transition-all shadow-lg hover:shadow-[#4cd7f7]/20">
+            <span>EXPLORE FULL DIRECTORY</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+    </div>
+</section>
+
+
+<section id="our-playground" class="py-20 border-t border-white/5 relative overflow-hidden">
   <div class="px-8 max-w-7xl mx-auto mb-16">
     <div class="flex flex-col md:flex-row justify-between items-end gap-6">
       <div>
@@ -508,40 +567,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </div><!-- /marquee-wrapper -->
 </section>
 
-<style>
-.hide-scrollbar::-webkit-scrollbar { display: none; }
-.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-</style>
-<section id="home-elements-section" class="py-24 bg-[#131313] relative overflow-hidden border-t border-white/5">
-    <div class="px-8 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
-        <div>
-            <h2 class="font-headline text-4xl font-bold text-white mb-2 uppercase tracking-tighter">MEET THE <br/><span class="kinetic-italic text-secondary">ELEMENTS</span></h2>
-            <p class="text-white/50 font-body text-sm">A curated selection of our world-class talent and characters.</p>
-        </div>
-        
-        <!-- Search Bar -->
-        <div class="w-full md:w-80 relative">
-            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/50">search</span>
-            <input type="text" id="home-artist-search" placeholder="Search elements..." class="w-full pl-12 pr-4 py-3 rounded-xl text-sm transition-all focus:border-[#4cd7f7] focus:ring-1 focus:ring-[#4cd7f7] text-white bg-white/5 border border-white/10 shadow-inner">
-        </div>
-    </div>
 
-    <div id="home-elements-loading" class="text-center py-12 text-white/50">
-        <span class="material-symbols-outlined animate-spin text-4xl text-[#4cd7f7] block mx-auto w-fit">progress_activity</span>
-        <p class="mt-4 font-headline uppercase tracking-widest text-xs">Loading Elements...</p>
-    </div>
-
-    <!-- Horizontal Scroll Container -->
-    <div id="home-artists-scroll" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-12 pt-4 px-8 hide-scrollbar">
-        <!-- Dynamic Cards Here -->
-    </div>
-    
-    <div class="text-center mt-4">
-        <a href="the-elements.html" class="inline-flex items-center gap-2 text-[#4cd7f7] bg-[#4cd7f7]/10 px-8 py-4 rounded-xl font-headline text-xs font-bold uppercase tracking-widest hover:gap-4 hover:bg-[#4cd7f7]/20 transition-all shadow-lg hover:shadow-[#4cd7f7]/20">
-            <span>EXPLORE FULL DIRECTORY</span><span class="material-symbols-outlined text-sm">arrow_forward</span>
-        </a>
-    </div>
-</section>
 
 <!-- ═══════════════════════════════════════════
      EXPERIENCES — Premium Glassmorphism Cards
