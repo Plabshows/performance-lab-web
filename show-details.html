@@ -413,13 +413,23 @@
             }
 
             // Public visibility check - skip check if admin
-            if (!item.is_web_public && !isAdminMode) {
+            if (item.is_web_public === false && !isAdminMode) {
                 showError("This show is currently private. Please log in as admin to view/edit it.");
                 return;
             }
 
-            name = item.web_custom_title || item.name;
-            category = (item.categories && item.categories.length > 0) ? item.categories[0] : item.category;
+            name = item.web_custom_title || item.name || 'Untitled Show';
+            
+            // Build initial categories list safely
+            let cats = [];
+            if (Array.isArray(item.categories)) {
+                cats = item.categories;
+            } else if (item.category) {
+                cats = [item.category];
+            }
+            
+            currentItem._activeCats = [...cats];
+            renderCategoryChips(cats, false);
             
             if (source === 'app') {
                 description = item.web_description || item.description || '';
@@ -427,14 +437,13 @@
                 description = item.web_description || item.long_description || item.description || '';
             }
             
-            // Build editable gallery array. Default behavior uses web_gallery
+            // Build editable gallery array safely
             let rawWebGallery = item.web_gallery;
             if (!rawWebGallery || (Array.isArray(rawWebGallery) && rawWebGallery.length === 0)) {
-                // If web_gallery is uninitialized, populate it dynamically from old fields for the edit mode
                 rawWebGallery = [];
                 if (source === 'app') {
-                    const ph = item.photos_url || [];
-                    const vi = item.video_gallery || [];
+                    const ph = Array.isArray(item.photos_url) ? item.photos_url : [];
+                    const vi = Array.isArray(item.video_gallery) ? item.video_gallery : [];
                     if (item.video_url) vi.push(item.video_url);
                     ph.forEach(p => { if (p) rawWebGallery.push({url: p, type: 'image'}); });
                     vi.forEach(v => {
@@ -442,30 +451,26 @@
                         if (vUrl) rawWebGallery.push({url: vUrl, type: 'video'});
                     });
                 } else {
-                    const og = item.gallery || [];
+                    const og = Array.isArray(item.gallery) ? item.gallery : [];
                     og.forEach(p => { if (p) rawWebGallery.push({url: p, type: 'image'}); });
                 }
             } else if (typeof rawWebGallery === 'string') {
                 try { rawWebGallery = JSON.parse(rawWebGallery); } catch(e) { rawWebGallery = []; }
             }
             
-            editableGallery = [...(rawWebGallery || [])];
+            if (!Array.isArray(rawWebGallery)) rawWebGallery = [];
+            editableGallery = [...rawWebGallery];
             pendingCoverImage = item.web_cover_image || item.image_url || item.image || '';
 
             // Fill Hero
-            document.getElementById('show-name').textContent = name;
-            
-            const cats = item.categories && item.categories.length > 0 ? item.categories : (item.category ? [item.category] : []);
-            currentItem._activeCats = [...cats];
-            renderCategoryChips(cats, false);
-            
             document.getElementById('show-name').textContent = name;
             
             const imageEl = document.getElementById('show-image');
             const heroBg  = document.getElementById('hero-bg');
             const coverSrc = pendingCoverImage || 'https://images.unsplash.com/photo-1598387181032-a3103ea7362a?auto=format&fit=crop&q=80&w=800';
             imageEl.src = coverSrc;
-            // Set hero background: pick a random gallery image (no videos), fallback to cover
+            
+            // Set hero background safely
             if (heroBg) {
                 const galleryImages = editableGallery
                     .map(g => typeof g === 'string' ? g : (g && g.url))
@@ -480,21 +485,17 @@
             }
             
             document.getElementById('show-description').textContent = description;
-            
-            // Build initial gallery
             renderGallery();
 
             // Show content
             document.getElementById('loading').classList.add('hidden');
             document.getElementById('content').classList.remove('hidden');
 
-            if (isAdminMode) {
-                activateEditMode();
-            }
+            if (isAdminMode) activateEditMode();
 
         } catch (err) {
             console.error('Error fetching show details:', err);
-            showError();
+            showError("An error occurred while loading the show: " + err.message);
         }
     }
 
