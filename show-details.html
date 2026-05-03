@@ -333,7 +333,10 @@
     const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     const urlParams = new URLSearchParams(window.location.search);
-    const showParam = urlParams.get('show')?.trim();
+    // Support both ?show=slug (old format) and /experiences/slug (SEO path format)
+    const pathSlug = window.location.pathname.split('/').filter(Boolean).pop();
+    const isPathSlug = !urlParams.get('show') && pathSlug && pathSlug !== 'show-details.html';
+    const showParam = (urlParams.get('show') || (isPathSlug ? pathSlug : '')).trim() || null;
     let source = ''; // Will be determined by which table it's found in
     const isEditRequested = urlParams.get('edit') === 'true';
 
@@ -764,7 +767,7 @@
                 }
                 
                 const table = source === 'app' ? 'acts' : 'pld_characters';
-                const { error } = await supabaseClient.from(table).update(updates).eq('id', showId);
+                const { error } = await supabaseClient.from(table).update(updates).eq('id', currentItem.id);
                 if (error) throw error;
                 
                 btn.innerHTML = '<span class="material-symbols-outlined text-sm">check_circle</span> GUARDADO O.K.';
@@ -802,7 +805,7 @@
         const p = document.querySelector('#error p');
         p.style.display = 'block';
         p.style.color = '#ffb1c1';
-        p.innerHTML = `${customMsg || 'The performance you are looking for might have been moved or deleted.'}<br><br><div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-top: 20px; font-family: monospace; font-size: 12px; color: #4cd7f7;">Debug info:<br>ID: [${showId}]<br>Source: [${source}]</div>`;
+        p.innerHTML = `${customMsg || 'The performance you are looking for might have been moved or deleted.'}<br><br><div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-top: 20px; font-family: monospace; font-size: 12px; color: #4cd7f7;">Debug info:<br>Slug: [${showParam}]<br>Source: [${source}]</div>`;
     }
 
     document.addEventListener('DOMContentLoaded', loadShowDetails);
