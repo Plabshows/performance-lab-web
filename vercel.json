@@ -13,7 +13,7 @@
 
     {
       "source": "/contact",
-      "destination": "/contact.html",
+      "destination": "/cindex.html#booking-form",
       "permanent": true
     },
     {
